@@ -1,0 +1,283 @@
+\documentclass[uplatex,a4paper,11pt]{jsarticle}
+
+
+% 数式
+\usepackage{amsthm}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{color}
+\usepackage{comment}
+\usepackage{ulem}
+\usepackage[all]{xy}
+\def\objectstyle{\displaystyle}
+
+
+
+
+\newtheoremstyle{mystyle}% % スタイル名
+ {}% % 上部スペース
+ {}% % 下部スペース
+ {\normalfont}% % 本文フォント
+ {}% % インデント量
+ {\bf}% % 見出しフォント
+ {}% % 見出し後の句読点, '.'
+ { }% % 見出し後のスペース, ' ' or \newline
+ {\underline{\thmname{#1}\thmnumber{#2}\thmnote{（#3）}}}%
+ % 見出しの書式 (can be left empty, meaning `normal')
+\theoremstyle{mystyle} % スタイルの適用
+
+\newtheorem{theorem}{Thm.}[section]
+\newtheorem{proposition}{Prop.}[section]
+\newtheorem{lemma}{Lem.}[section]
+\newtheorem{corollary}{Cor.}[section]
+
+\makeatletter % use at mark
+\renewenvironment{proof}[1][\proofname]{\par
+ \pushQED{\qed}%
+ \normalfont \topsep6\p@\@plus6\p@\relax
+ \trivlist
+ \item[\hskip\labelsep
+ \itshape
+ {\bf\underline{#1}}]\ignorespaces
+ % {\bf\underline{#1}\@addpunct{.}}]\ignorespaces % ピリオドあり
+}{%
+ \popQED\endtrivlist\@endpefalse
+}
+\makeatother % end at mark
+
+\renewcommand{\abstractname}{}
+\renewcommand{\theenumi}{(\arabic{enumi})}
+\renewcommand{\labelenumi}{(\arabic{enumi})}
+
+\newcommand{\emphasis}[1]{\textgt{\textcolor{magenta}{#1}}}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Auteq}{Auteq}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+
+
+\begin{document}
+
+\title{}
+\author{}
+\date{}
+%\maketitle
+特にことわらない限り，$X$を小平I\hspace{ - .1em}I\hspace{ - .1em}I型曲線（$=$2つの$\mathbb{P}^1$が1点で接している特異曲線）とする．
+\begin{lemma}\label{auto_of_3}
+	$p,q \in X$を異なる既約成分上にある非特異閉点とする．$p,q$を動かさない$f \in \Aut{X}$は$k^\times$によりパラメトライズされる．
+\end{lemma}
+\begin{proof}
+	$X$を$\{y=x^2\}\cup\{y=0\} \subset \mathbb{A}^2$の射影化$\{yz=x^2\}\cup\{y=0\} \subset \{[x:y:z]\}=\mathbb{P}^2$とみる．これにより$p=[0:1:0] \in \{yz=x^2\}, q=[1:0:0] \in \{y=0\}$だとする．
+	$s \in X$を$X$の（唯一の）特異点$[0:0:1]$とし，$n \colon L_1 \sqcup L_2 \to X$を$X$の正規化とする．$ L_1,L_2 \cong \mathbb{P}^1$の座標を$$n|_{L_1}(0)=s, n|_{L_1}(\infty)=x, n|_{L_2}(0)=s, n|_{L_2}(\infty)=y,$$となるようにとる．このとき$f$が誘導する$L_1 \sqcup L_2$の自己同型$\tilde{f}$は，上の座標により$L_1,L_2$上で$0$でない定数倍写像により与えられる．（$f$は$X$の既約成分を保つので各$L_i$の自己同型を誘導し，座標の取り方より$0$と$\infty$を固定する$\mathbb{P}^1$の自己同型になるから．）$\tilde{f}|_{L_1},\tilde{f}|_{L_2}$をそれぞれ$a$倍，$b$倍だとする．
+
+	以上の座標の設定により，$s$のアファイン近傍$U=X - \{p,q\}$に$n$を制限したものは単射な$k$代数準同型
+	$$k[x, y]/y(y - x^2) \to k[x_1]\times k[x_2]$$
+	$$x \mapsto (x_1, x_2)$$
+	$$y \mapsto (x_1^2, 0)$$
+	の$\Spec$をとったものになる（$k[x_1],k[x_2]$がそれぞれ$L_1, L_2$に対応）．$f$が$p,q$を保つという条件より，$f$は$U$の自己同型，すなわち$k[x, y]/y(y - x^2)$の自己同型$\varphi$を誘導する．また$\tilde{f}|_{L_1},\tilde{f}|_{L_2}$が$\mathbb{P}^1$の$a$倍，$b$倍写像だったので，結局以下の可換図式が得られる．
+
+	\[
+		\xymatrix{
+			k[x_1]\times k[x_2] \ar[r]^{(x_1 \mapsto ax_1, x_2 \mapsto bx_2)} & k[x_1]\times k[x_2]\\
+			k[x, y]/y(y - x^2) \ar[u] \ar[r]^\varphi & k[x, y]/y(y - x^2) \ar[u]
+		}
+	\]
+	このとき$a=b$で$\varphi(x)=ax, \varphi(y)=a^2y$であることを示す．まず$y \in k[x, y]/y(y - x^2)$について考えると，
+	\[
+		\xymatrix{
+			(x_1^2,0) \ar@{|->}[r] & (a^2x_1^2, 0)\\
+			y \ar@{|->}[u] \ar@{|->}[r] & \varphi(y) \ar@{|->}[u]
+		}
+	\]
+	となり，縦の射は単射だったから$\varphi(y)=a^2y$となる．次に$\varphi(x) \in k[x,y]/y(y - x^2)$の$k[x,y]$へのリフトの1つを$g(x,y)$とすると，
+	\[
+		\xymatrix{
+			(x_1,x_2) \ar@{|->}[r] & (ax_1, bx_2)\\
+			x \ar@{|->}[u] \ar@{|->}[r] & g(x,y) \mod y(y - x^2) \ar@{|->}[u]
+		}
+	\]
+	より，$$g(x_1,x_1^2)=ax_1, g(x_2, 0) = bx_2$$が成り立つ．2つ目の式より多項式$h(x,y)$を使って$$g(x.y)=bx + yh(x,y)$$とかけ，1つ目の式より$$bx_1 + x_1^2h(x_1,x_1^2)=ax_1$$となる．係数比較により$a=b$となり，\[
+		\xymatrix{
+			(x_1,x_2) \ar@{|->}[r] & (ax_1, ax_2)\\
+			x \ar@{|->}[u] \ar@{|->}[r] & \varphi(x) \ar@{|->}[u]
+		}
+	\]
+	となるから，縦の射の単射性より$\varphi(x)=ax$である．
+\end{proof}
+
+\begin{lemma}\label{iso_of_line_bundles}
+	$p,q \in X$を異なる既約成分上にある非特異閉点とし，$p$と$q$を入れ替えるような$X$の自己同型で，involutionであるものの1つを$\sigma$とする．（このような$\sigma$は2つある．）$r \in X$を非特異閉点とし，$s = \sigma(r)\in X$と定めると，$$\mathcal{O}(p + q)\cong \mathcal{O}(r + s)$$である．
+\end{lemma}
+\begin{proof}
+	$p,q$で$1$位の極をもち$r,s$で$1$位の零点を持つような$X$上の有理型関数を構成すればよい．Lem.\ref{auto_of_3} と同じ記法・座標で考える．$\sigma$としてあり得るのは（Lem.\ref{auto_of_3} の記法のもとで）$x_1 \mapsto x_2, x_2 \mapsto x_1$または$x_1 \mapsto - x_2, x_2 \mapsto - x_1$の2通りである．
+
+	$r$は（Lem.\ref{auto_of_3}の座標で）$[1:1:1]\in\{yz=x^2\}$だとしてよい．また$s$の座標が$[a:0:1]$（$a \in k^\times$）だとする．このとき$p, r$は$n$により$L_1 \cong \mathbb{P}^1$上の点$\infty, 1$に対応し，$q,s$は$n$により$L_2 \cong \mathbb{P}^1$上の点$\infty, a$に対応する．
+
+	そこで，$L_1$上の$\infty$に$1$位の極，$1$に$1$位の零点をもつ有理型関数$f$と，$L_2$上の$\infty$に$1$位の極，$a$に$1$位の零点をもつ有理型関数$g$をうまく取り，それらを貼り合わせて求める$X$上の有理型関数が作れることを示せばよいが，$f(x_1)=x_1 - 1, g(x_2)=x2 - 1$とおけばこれらは$\Spec k[x,y]/y(y - x^2)$上の正則関数$h(x,y)=x - 1$の引き戻しだから，$X$上で貼り合う．
+\end{proof}
+
+\begin{lemma}\label{calc_of_twist_functors}
+	(I型でも正しい．)
+
+	$x \in X$を非特異閉点とする．
+	$D^b(X)$のspherical object $\mathcal{O}_x, \mathcal{O}$に伴うtwist functorをそれぞれ$T_x, T_{\mathcal{O}}$とすると，$D^b(X)$において次が成り立つ．
+	\begin{enumerate}
+		\item $T_x T_\mathcal{O}T_x \cong T_\mathcal{O}T_x T_\mathcal{O}$ (Braid relation)
+		\item $T_x\cong\mathcal{O}(x) \otimes - $
+		\item $T_{\mathcal{O}}(\mathcal{O}_x)\cong\mathcal{O}( - x)[1]$
+		\item $T_{\mathcal{O}}(\mathcal{O}(x))\cong\mathcal{O}_x$
+		\item $T_{\mathcal{O}}(\mathcal{O})\cong\mathcal{O}$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\begin{enumerate}
+		\item $\sum_{i} \dim \Hom^i (\mathcal{O}, \mathcal{O}_x)=1$だから,組$(\mathcal{O}, \mathcal{O}_x)$は\cite{ST01}の意味での$A_2$ - configurationである．よって\cite{ST01} Thm.1.2により正しい．
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}\label{calc_of_twist_functors2}
+	(I型でも正しい．)
+
+	$x, y \in X$を非特異閉点とする（同じ既約成分上にあってもok）．このとき
+	\begin{enumerate}
+		\item $T_\mathcal{O}(\mathcal{O}(x + y))\cong \mathcal{O}( - x - y)[1]$
+		\item $T_\mathcal{O}(\mathcal{O}(x - y))\cong \mathcal{O}(x - y)$
+	\end{enumerate}
+	が成り立つ．
+\end{lemma}
+\begin{proof}
+	\begin{enumerate}
+		\item Braid relation $T_x T_\mathcal{O}T_x \cong T_\mathcal{O}T_x T_\mathcal{O}$ に$\mathcal{O}(y)$を代入すると$$T_x T_\mathcal{O}T_x(\mathcal{O}(y))\cong \mathcal{O}(x)\otimes T_\mathcal{O}(\mathcal{O}(x + y))$$$$T_\mathcal{O}T_x T_\mathcal{O}(\mathcal{O}(y))\cong T_\mathcal{O}T_x (\mathcal{O}_y) \cong T_\mathcal{O}(\mathcal{O}_y) \cong \mathcal{O}( - y)[1]$$となるからよい．
+		\item Braid relation $T_x T_\mathcal{O}T_x \cong T_\mathcal{O}T_x T_\mathcal{O}$ に$\mathcal{O}_y$を代入すると$$T_x T_\mathcal{O}T_x(\mathcal{O}_y)\cong T_x T_\mathcal{O}(\mathcal{O}_y) \cong T_x(\mathcal{O}( - y)[1])\cong \mathcal{O}(x - y)[1]$$$$T_\mathcal{O}T_x T_\mathcal{O}(\mathcal{O}_y)\cong T_\mathcal{O}T_x (\mathcal{O}( - y)[1]) \cong T_\mathcal{O}(\mathcal{O}(x - y)[1])$$となるからよい．
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}\label{criterion_to_be_id}
+	(I型でも正しい．)
+
+	$x, y \in X$を，異なる既約成分上にある非特異閉点とする．$F \in \Auteq{D^b(X)}$が
+	\begin{itemize}
+		\item $F(\mathcal{O}) \cong \mathcal{O}$
+		\item $F(\mathcal{O}_x) \cong \mathcal{O}_x$
+		\item $F(\mathcal{O}_y) \cong \mathcal{O}_y$
+	\end{itemize}
+	を満たすならば，$f \in \Aut{X}$により$F\cong f^*$となる．さらにこの$f$は$x,y$を保つ．
+\end{lemma}
+\begin{proof}
+	（I\hspace{ - .1em}I\hspace{ - .1em}I型のとき）$L=\mathcal{O}(x + y)$とおくと，これはampleである．（$X=\{Y=0\}\cup\{YZ=X^2\} \subset \mathbb{P}^2$, $x=[1:0:0], y=[0:1:0]$とみたときに,
+	$\mathbb{P}^2$のhyperplane $Z=0$による$X$のhyperplane sectionは$x + 2y$なので，$\mathcal{O}(x + 2y), \mathcal{O}(2x + y)$がvery ampleになり，従って$L^3=\mathcal{O}(3x + 3y)$もvery ampleだから．）
+
+	あとは\cite{Sib14} Lem 3.3と同じ．条件から$F(L^{\otimes m})\cong L^{\otimes m}$が任意の整数$m$について成り立つ．これらの同型はそのままでは自然な同型ではないかもしれないが，これが$\oplus_{m=0}^\infty H^0(L^{\otimes m})$に誘導する代数の同型を考え，そこから$X$の自己同型$f$を作ってやるとBondal - Orlov reconstructionと同じ議論で$F \cong f^*$となる．（$D^b(X)$の ample sequence $\{L^{\otimes m}\}_{m \in \mathbb{Z}}$上で同型→全体に伸ばす．）
+\end{proof}
+\begin{lemma}\label{calc_around_z}
+	$x, y, z \in X$を非特異閉点とし，$F=(T_xT_\mathcal{O}T_y)^2$とする．このとき$$F(\mathcal{O}(z))\cong \mathcal{O}(2x - z)[1]$$である．
+\end{lemma}
+\begin{proof}
+	\begin{align}
+		F(\mathcal{O}(z - y))
+		 & = T_xT_\mathcal{O}T_yT_xT_\mathcal{O}T_y(\mathcal{O}(z))      \\
+		 & \cong T_xT_\mathcal{O}T_yT_xT_\mathcal{O}(\mathcal{O}(y + z)) \\
+		 & \cong T_xT_\mathcal{O}T_yT_x(\mathcal{O}( - y - z)[1])        \\
+		 & \cong T_xT_\mathcal{O}(\mathcal{O}(x - z)[1])]                \\
+		 & \cong T_x(\mathcal{O}(x - z)[1])                              \\
+		 & \cong \mathcal{O}(2x - z)[1]
+	\end{align}
+\end{proof}
+\begin{theorem}\label{G_2 relation for the III curve}
+	$x, y \in X$を非特異閉点とする．$\Auteq D^b(X)$において等式$$(T_xT_\mathcal{O}T_y)^4=[2]$$が成り立つ．
+\end{theorem}
+\begin{proof}
+	$F=(T_xT_\mathcal{O}T_y)^2$とおく．Lem.\ref{iso_of_line_bundles}のような$x$と$y$を入れ替えるinvolutionの1つを$\sigma$とする．まず$$(\mathcal{O}(x - y)\otimes - )\circ\sigma^* F[ - 1]\cong\id$$であることを示す．
+	\begin{align}
+		(\mathcal{O}(x - y)\otimes - )\circ\sigma^* F[ - 1](\mathcal{O})
+		 & = (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_xT_\mathcal{O}T_y(\mathcal{O})[ - 1]     \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_xT_\mathcal{O}(\mathcal{O}(y))[ - 1] \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_x(\mathcal{O}_y)[ - 1]               \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}(\mathcal{O}_y)[ - 1]                     \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_x(\mathcal{O}( - y))                                    \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*(\mathcal{O}(x - y))                                      \\
+		 & \cong (\mathcal{O}(x - y)\otimes(\mathcal{O}(y - x))                                                       \\
+		 & \cong \mathcal{O}
+	\end{align}
+	\begin{align}
+		(\mathcal{O}(x - y)\otimes - )\circ\sigma^* F[ - 1](\mathcal{O}_x)
+		 & = (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_xT_\mathcal{O}T_y(\mathcal{O}_x)[ - 1]  \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_xT_\mathcal{O}(\mathcal{O}_x)[ - 1] \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_x(\mathcal{O}( - x))                \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}(\mathcal{O}(y))                         \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_x(\mathcal{O}_y)                                       \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*(\mathcal{O}_y)                                          \\
+		 & \cong \mathcal{O}(x - y)\otimes(\mathcal{O}_x)                                                            \\
+		 & \cong \mathcal{O}_x                                                                                       \\
+	\end{align}
+
+	\begin{align}
+		(\mathcal{O}(x - y)\otimes - )\circ\sigma^* F[ - 1](\mathcal{O}_y)
+		 & = (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_xT_\mathcal{O}T_y(\mathcal{O}_y)[ - 1]  \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_xT_\mathcal{O}(\mathcal{O}_y)[ - 1] \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}T_yT_x(\mathcal{O}( - y))                \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_xT_\mathcal{O}(\mathcal{O}(x))                         \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*T_x(\mathcal{O}_x)                                       \\
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^*(\mathcal{O}_x)                                          \\
+		 & \cong \mathcal{O}(x - y)\otimes(\mathcal{O}_y)                                                            \\
+		 & \cong \mathcal{O}_y                                                                                       \\
+	\end{align}
+	だから，Lem.\ref{criterion_to_be_id}よりある$x,y$を動かさない$X$の自己同型$f$があり$$(\mathcal{O}(x - y)\otimes - )\circ\sigma^* F[ - 1] \cong f^*$$となる．さらに$z \in X$を$x,y$と異なる非特異閉点としたとき，Lem.\ref{calc_around_z}により
+	\begin{align}
+		(\mathcal{O}(x - y)\otimes - )\circ\sigma^* F[ - 1](\mathcal{O}(z))
+		 & \cong (\mathcal{O}(x - y)\otimes - )\circ\sigma^* \mathcal{O}(2x - z) \\
+		 & \cong \mathcal{O}(x - y)\otimes \mathcal{O}(2y - \sigma(z))           \\
+		 & \cong \mathcal{O}(x + y - \sigma(z))                                  \\
+	\end{align}
+	となる（$\sigma^{ - 1}=\sigma$に注意する）．これはLem.\ref{iso_of_line_bundles}により$\mathcal{O}(z)$と同型である．つまり$(\mathcal{O}(x - y)\otimes - )\circ\sigma^* F[ - 1] \cong f^*$は$\mathcal{O}(z)$を保つ．$f$は自己同型だから連接層の完全列を保つことに注意して完全列$$0 \to \mathcal{O} \to \mathcal{O}(z)\to\mathcal{O}_z\to 0$$に$f^*$を施すと，$$0 \to \mathcal{O} \to \mathcal{O}(z)\to f^*\mathcal{O}_z\to 0$$という完全列を得る．単射$\mathcal{O} \to \mathcal{O}(z)$は（リーマンロッホより$\dim H^0(\mathcal{O}(z))=1$であることから）$k^\times$倍を除いて一意だから，結局この完全列より$f^*\mathcal{O}_z \cong \mathcal{O}_z$がわかる．つまり$f$は$z$を保ち，Lem.\ref{auto_of_3}より$f = \id$となる．
+
+	以上より$$F \cong \sigma^*\circ (\mathcal{O}(y - x)\otimes - )[1]$$となる．これと$$\sigma^*\circ (\mathcal{O}(y - x)\otimes - ) \cong (\mathcal{O}(x - y)\otimes - )\circ \sigma^*$$により，$$F^2 \cong [2]$$である．
+\end{proof}
+
+\subsection*{Sibillaの矛盾？→解決した．}
+計算してたらおかしな結果が出たので，どこか間違ってるはず．
+\begin{proposition}[\cite{Sib14}Thm.3.6の証明の$n=2$の議論]\label{G_2 relation for the I_2 curve}
+	$X$をI$_2$型曲線とし，$x, y \in X$を異なる既約成分上にある非特異閉点とする．また$x$と$y$を入れ替え特異点を保つような唯一のinvolutionを$\sigma \colon X \to X$とし，$F=(T_xT_\mathcal{O}T_y)^2$とする．このとき$x,y$を保つような自己同型$f \colon X \to X$があり，$$F \cong \textcolor{magenta}{(\mathcal{O}(x - y)\otimes - )\circ} f^*\sigma^*[1]$$となる．さらに$f$は2つの特異点を入れ替えるような唯一のinvolutionまたは$\id$で，$\sigma$と可換である．特に$$F^2 \cong[2]$$である．
+\end{proposition}
+\begin{proof}
+	Lem.\ref{calc_of_twist_functors}を使って$$F(\mathcal{O})\cong \hbox{\sout{$\mathcal{O}[1]$}} \hspace{5pt}\textcolor{magenta}{\mathcal{O}(x - y)[1]}$$$$F(\mathcal{O}_x)\cong \mathcal{O}_y[1]$$$$F(\mathcal{O}_y)\cong \mathcal{O}_x[1]$$を示す．$\mathcal{O}_x$については
+	\begin{align}
+		T_xT_\mathcal{O}T_yT_xT_\mathcal{O}T_y(\mathcal{O}_x)
+		 & \cong T_xT_\mathcal{O}T_yT_xT_\mathcal{O}(\mathcal{O}_x) \\
+		 & \cong T_xT_\mathcal{O}T_yT_x(\mathcal{O}( - x)[1])       \\
+		 & \cong T_xT_\mathcal{O}T_y(\mathcal{O}[1])                \\
+		 & \cong T_xT_\mathcal{O}(\mathcal{O}(y)[1])                \\
+		 & \cong T_x\mathcal{O}_y[1]                                \\
+		 & \cong \mathcal{O}_y[1]                                   \\
+	\end{align}
+	となり，他も同様にわかる．よって関手$\textcolor{magenta}{(\mathcal{O}(x - y)\otimes - )}\circ\sigma^* \circ F[ - 1]$はLem.\ref{criterion_to_be_id}の条件を満たす．よってLem.\ref{criterion_to_be_id}より（$\sigma^2=\id$に注意すると）$x,y$を保つような自己同型$f \colon X \to X$があり，$$F \cong \textcolor{magenta}{(\mathcal{O}(x - y)\otimes - )}\circ f^*\sigma^*[1]$$となる．
+	さらに$f$が$X$の2つの特異点を入れ替えるか，保つかによってinvolutionまたは$\id$となることが（normalizationに誘導する自己同型を見ることで）わかる．
+\end{proof}
+\begin{proposition}
+	Prop.\ref{G_2 relation for I_2 curve}の状況で，$z \in X$を非特異閉点とする．このとき
+	$$F(\mathcal{O}(z - 2y))\cong \mathcal{O}( - z)[1]$$であり，$$\textcolor{magenta}{(\mathcal{O}(x - y)\otimes - )}\circ f^*\sigma^*(\mathcal{O}(z - 2y))[1]\cong \hbox{\sout{$\mathcal{O}(f(\sigma(z)) - 2x)[1]$}}\hspace{5pt}\textcolor{magenta}{\mathcal{O}(f(\sigma(z)) - x - y)[1]}$$である．
+\end{proposition}
+\begin{proof}
+	Lem.\ref{calc_of_twist_functors},
+	Lem.\ref{calc_of_twist_functors2}を使って計算すると
+	\begin{align}
+		F(\mathcal{O}(z - 2y))
+		 & = T_xT_\mathcal{O}T_yT_xT_\mathcal{O}T_y(\mathcal{O}(z - 2y)) \\
+		 & \cong T_xT_\mathcal{O}T_yT_xT_\mathcal{O}(\mathcal{O}(z - y)) \\
+		 & \cong T_xT_\mathcal{O}T_yT_x(\mathcal{O}(z - y))              \\
+		 & \cong T_xT_\mathcal{O}T_y(\mathcal{O}(x + z - y))             \\
+		 & \cong T_xT_\mathcal{O}(\mathcal{O}(x + z))                    \\
+		 & \cong T_x(\mathcal{O}( - x - z)[1])                           \\
+		 & \cong \mathcal{O}( - z)[1]                                    \\
+	\end{align}
+	となる．
+\end{proof}
+\sout{$\mathcal{O}( - z)$と$\mathcal{O}(f(\sigma(z)) - 2x)$ではmulti - degreeが合わないので何かおかしい．}\textcolor{magenta}{あってる．}（$\sigma$は既約成分を入れ替え，$f$は保つので$f(\sigma(z))$は$z$と異なる既約成分の上にある．）
+\begin{comment}
+
+\end{comment}
+\begin{thebibliography}{99}
+	\bibitem[Sib14]{Sib14} N. Sibilla, \textit{A note on mapping class group actions on derived categories}, Proceedings of the American Mathematical Society, 142(6):1837–1848, 2014.
+	\bibitem[ST01]{ST01} P. Seidel and R. Thomas, \textit{Braid group actions on derived categories of coherent sheaves}, Duke Math. J., 108(1):37–108, 2001, MR 1831820, Zbl 1092.14025.
+\end{thebibliography}
+\end{document}
