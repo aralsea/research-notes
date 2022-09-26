@@ -1,4 +1,4 @@
-\documentclass[uplatex,a4paper,11pt]{jsarticle}
+\documentclass[uplatex,a4paper,11pt,dvipdfmx]{jsarticle}
 
 
 % 数式
@@ -8,6 +8,7 @@
 \usepackage{comment}
 \usepackage{ulem}
 \usepackage[all]{xy}
+\usepackage{tikz-cd}
 \def\objectstyle{\displaystyle}
 
 
@@ -106,16 +107,60 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	$i_* \colon D^*(X) \to D^*(Y)$はexactだから$i_*Li^* \cong L(i_*i^*)$である．ここで$i_*i^* \cong -\otimes_{\mathcal{O}_Y}\mathcal{O}_X$だから，$L(i_*i^*) \cong -\otimes^L_{\mathcal{O}_Y}\mathcal{O}_X$となる．またregular immersionの仮定より，Koszul resolution
 \end{proof}
 \end{comment}
+\begin{lemma}\label{counit_map}
+	Lem.\ref{effective_divisor}の状況で$F \in \Coh(X)$とすると，随伴$Li^* \dashv i_*$に付随するcounit射$\varepsilon \colon Li^*(i_*F) \to F$が複体の$0$次コホモロジーに誘導する射は同型である．
+\end{lemma}
+\begin{proof}
+	$i_*F \in \Coh(Y)$の bounded locally free resolution
+	$$0 \to P^{-r}\to\cdots\to P^{-1}\to P^0 \to i_* F \to 0$$
+	をとる．これにより得られる$D^b(Y)$での同型射を$\varphi \colon P^\bullet \to i_*F$とする．随伴の自然性より以下のような可換図式がある．
+	\[
+		\begin{tikzcd}
+			\Hom_Y(i_*F, i_*F) \arrow[r, "\sim"]\arrow[d, "- \circ \varphi"] & \Hom_X(Li^*(i_*F), F) \arrow[d, "- \circ Li^*(\varphi)"]&\id \arrow[r, mapsto]\arrow[d, mapsto] & \varepsilon \arrow[d, mapsto]\\
+			\Hom_Y(P^\bullet, i_*F) \arrow[r, "\sim"] & \Hom_X(Li^*(P^\bullet), F)&\varphi \arrow[r, mapsto] & \varepsilon \circ Li^*(\varphi)
+		\end{tikzcd}
+	\]
+	$\varepsilon$の代わりに$\varepsilon \circ Li^*(\varphi)$が$0$次コホモロジー誘導する射について確かめればよい．上の可換図式より，$\varepsilon \circ Li^*(\varphi)$は$\varphi$を随伴でうつしたもの等しいが，下の段の随伴同型は derived でない随伴同型による複体の射の対応（から誘導されるもの）である．よって以下の$\varphi$
+	\[
+		\begin{tikzcd}
+			\cdots\to &P^{-1}\arrow[d]&\to &P^0 \arrow[d, "\varphi^0"] &\to &0\arrow[d]\\
+			&0&\to& i_*F & \to &0
+		\end{tikzcd}
+	\]
+	を随伴でうつしたものは，$\varphi^0$を随伴でうつした$\psi^0$を用いて
+	\[
+		\begin{tikzcd}
+			\cdots\to &i^*P^{-1}\arrow[d]&\to &i^*P^0 \arrow[d, "\psi^0"] &\to &0\arrow[d]\\
+			&0&\to& F & \to &0
+		\end{tikzcd}
+	\]
+	と表される射$\psi$である．derived でない順像逆像随伴の構成より，$\psi^0$は$\varphi^0$の$X$への制限に等しいから，$i^*$の右完全性より$0$次のコホモロジーに誘導する射は同型である．
+
+
+\end{proof}
+
+
+
 \begin{lemma}\label{pullback}
-	Lem.\ref{effective_divisor}の状況で$F \in \Coh(X)$とすると
-	$$Li^*(i_*F) \cong F[0] \oplus (F\otimes L_{|X})[1]$$である．さらに随伴$Li^* \dashv i_*$に付随するcounit射$\epsilon \colon Li^*(i_*F) \to F$は，この同型により自然なprojection $F[0] \oplus (F\otimes L_{|X})[1] \to F$に対応する（はず，\emphasis{まだ確かめてない！}）．
+	Lem.\ref{effective_divisor}の状況で$F \in \Coh(X)$とすると$D^b(X)$におけるdistinguished triangle
+	$$(F\otimes L_{|X})[1] \to Li^*(i_*F) \to F \xrightarrow{+1}$$がある．さらにこの図式の$Li^*(i_*F) \to F$は，随伴$Li^* \dashv i_*$に付随するcounit射$\varepsilon \colon Li^*(i_*F) \to F$である．
 \end{lemma}
 \begin{proof}
 	$i_* \colon D^*(X) \to D^*(Y)$はexactだから$i_*Li^* \cong L(i_*i^*)$である．ここで$i_*i^* \cong -\otimes_{\mathcal{O}_Y}\mathcal{O}_X$だから，$L(i_*i^*) \cong -\otimes^L_{\mathcal{O}_Y}\mathcal{O}_X$となる．よってLem.\ref{effective_divisor}の完全列により$\mathcal{O}_X$を分解することで$$L(i_*i^*)(i_*F) \cong (\cdots \to 0 \to i_*F\otimes L \xrightarrow{d^{-1}} i_*F \to 0 \to \cdots)$$となる（$i_*F$が$0$次のcomplex）．このとき，$d^{-1}$が$0$射であることをしめす．問題はlocalなので$X, Y$はaffineとしてよい．$Y=\Spec{A}, X = \Spec{A/I}$とし，$F$は$A/I$加群$M$に付随する層だとする．Lem.\ref{effective_divisor}の完全列は$$0 \to A \to A \to A/I \to 0$$となり，左の射は$I$の生成元$f$による$f$倍写像である．すると$d^{-1}$は$f$倍写像$M \to M$となるが，$M$は$A/I$加群なのでこれは$0$射に等しい．
 
-	ここまでで$$i_*Li^*(i_*F) \cong i_*F[0] \oplus i_*(F\otimes L)[1]$$が示せた．よって後は「$i_*$を施して層のシフトの（boundedな）直和になるcomplexは，元々層のシフトの直和である」ことを証明すれはよい．それはcomplexの長さによる帰納法でわかる．
+	ここまでで$$i_*Li^*(i_*F) \cong i_*F[0] \oplus i_*(F\otimes L)[1]$$が示せた．さらに$i_*$は完全関手だからコホモロジーをとる操作と可換であることに注意すると，複体$Li^*(i_*F)$の$j$次コホモロジー$\mathcal{H}^j$について$$i_*\mathcal{H}^0 \cong i_*F$$$$i_*\mathcal{H}^{-1}\cong i_*(F \otimes L_{|X})$$$$i_*\mathcal{H}^j = 0 \hspace{10pt}(j \neq 0, -1)$$となる．よって$$\mathcal{H}^0 \cong F$$$$\mathcal{H}^{-1}\cong F \otimes L_{|X}$$$$\mathcal{H}^j = 0 \hspace{10pt}(j \neq 0, -1)$$となる．ここでcounit射$\varepsilon \colon Li^*(i_*F) \to F$を補完するようなdistinguished triangle$$C\to Li^*(i_*F) \xrightarrow{\varepsilon} F \xrightarrow{+1}$$をとる．これに付随するコホモロジー長完全列をとると
 
-	またcounit射$\epsilon \colon Li^*(i_*F) \to F$は
+	\[
+		\begin{array}{ccccccc}
+			 &     &                     &     & \cdots           & \to                                      & 0 \\
+			 & \to & \mathcal{H}^{-2}(C) & \to & 0                & \to                                      & 0 \\
+			 & \to & \mathcal{H}^{-1}(C) & \to & F \otimes L_{|X} & \to                                      & 0 \\
+			 & \to & \mathcal{H}^{0}(C)  & \to & F                & \xrightarrow{\mathcal{H}^0(\varepsilon)} & F \\
+			 & \to & \mathcal{H}^{1}(C)  & \to & 0                & \to                                      & 0 \\
+			 & \to & \cdots              &     &                  &                                          &   \\
+		\end{array}
+	\]
+	となり，Lem.\ref{counit_map}より$\mathcal{H}^0(\varepsilon)$は同型だから，$C \cong (F \otimes L_{|X})[1]$となる．
 \end{proof}
 \begin{lemma}\label{boxtimes_is_a_sheaf}
 	$G \subset S$が$(-2)$-curveで$a \in \mathbb{Z}$のとき，$\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \in D^b(S\times S)$は$G\times G$上の層の$-1$シフト（のpushforward）である．
@@ -146,12 +191,17 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	Lem.\ref{boxtimes_is_a_sheaf}より，$G\times G$上の層$F$を用いて$\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \cong F[-1]$と表せる．よって$D^b(S \times S)$におけるdistinguished triangle$$F[-1] \xrightarrow{ev} \mathcal{O}_\Delta \to P \xrightarrow{+1} F$$がある．ここでもし$ev \in \Hom_{D^b(S\times S)}(F[-1], \mathcal{O}_\Delta)$が$\Hom_{D^b(S\times_C S)}(F[-1], \mathcal{O}_\Delta)$の元の像だったとすると，$D^b(S\times_C S)$でのCone$$P' = \Cone(\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \xrightarrow{ev} \mathcal{O}_\Delta)$$を$D^b(S\times S)$にpushしたものは$P$と同型になる．よってinclusion $S\times_C S \to S\times S$による（derived）pushforwardが誘導する射$$\Hom_{D^b(S\times_C S)}(F[-1], \mathcal{O}_\Delta) \to \Hom_{D^b(S\times S)}(F[-1], \mathcal{O}_\Delta)$$が全射であることを証明すれば定理が示される．
 
 	以下$X=S\times_C S$，$ Y=S\times S$とおき，$i \colon X \to Y$を自然なinclusionとする．
-	\begin{align*}
-		 & \Hom_{D^b(S\times S)}(F[-1], \mathcal{O}_\Delta) \\
-		 & =\Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta)           \\
-		 & \cong \Ext_X^1(Li^*(i_*F), \mathcal{O}_\Delta)
-	\end{align*}
-	となるが，Lem.\ref{pullback}よりこれは$\Hom_X(F\otimes L_{|X}, \mathcal{O}_\Delta)\oplus \Ext_X^1(F, \mathcal{O}_\Delta)$と同型である．さらにpushforwardが誘導する射$$\Ext_X^1(F, \mathcal{O}_\Delta) \to \Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta)$$は随伴同型$\Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta) \cong \Ext_X^1(Li^*(i_*F), \mathcal{O}_\Delta)$によりcounit射$\epsilon \colon Li^*(i_*F) \to F$の誘導する射$$\Ext_X^1(F, \mathcal{O}_\Delta) \to \Ext_X^1(Li^*(i_*F), \mathcal{O}_\Delta)$$に対応するので，Lem.\ref{pullback}の結果と合わせると$\Hom_X(F\otimes L_{|X}, \mathcal{O}_\Delta)=0$を証明すればよいことがわかる．
+	Lem.\ref{pullback}の distinguished triangle に $R\Hom(-, \mathcal{O}_\Delta)$をあてると
+	$$R\Hom(F, \mathcal{O}_\Delta) \to R\Hom(Li^*(i_*F), \mathcal{O}_\Delta) \to R\Hom((F\otimes L_{|X})[1], \mathcal{O}_\Delta) \xrightarrow{+1}$$
+	となり，コホモロジー長完全列をとることで
+	\[
+		\begin{array}{ccccccc}
+			 &     &                               &     &                                        &     & 0                                         \\
+			 & \to & \Ext^1(F, \mathcal{O}_\Delta) & \to & \Ext^1(Li^*(i_*F), \mathcal{O}_\Delta) & \to & \Hom(F\otimes L_{|X}, \mathcal{O}_\Delta) \\
+			 & \to & \Ext^2(F, \mathcal{O}_\Delta) & \to & \cdots                                 &     &
+		\end{array}
+	\]
+	という完全列を得る．この図式における$$\Ext^1(F, \mathcal{O}_\Delta) \to \Ext^1(Li^*(i_*F), \mathcal{O}_\Delta)$$はLem.\ref{pullback}より随伴$Li^* \dashv i_*$に付随するcounit射$\varepsilon \colon Li^*(i_*F) \to F$から誘導されるものだから，随伴同型$\Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta) \cong \Ext_X^1(Li^*(i_*F), \mathcal{O}_\Delta)$によりpushforwardが誘導する射$$\Ext_X^1(F, \mathcal{O}_\Delta) \to \Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta)$$と同一視される．よって上の長完全列より，$\Hom(F\otimes L_{|X}, \mathcal{O}_\Delta) =0$であることを証明すれば命題が示されることになる．
 
 	以下それを示す．随伴により$$\Hom_X(F\otimes L_{|X}, \mathcal{O}_\Delta)\cong\Hom_\Delta((F\otimes L_{|X})_{|\Delta}, \mathcal{O}_\Delta)$$だが，$F$は$G \times G \subset X$上の層だったため，$(F\otimes L_{|X})_{|\Delta}$は$(G \times G) \cap \Delta = \Delta_G$上の層$F'$である．よって$$\Hom_\Delta((F\otimes L_{|X})_{|\Delta}, \mathcal{O}_\Delta)=\Hom_\Delta(F', \mathcal{O}_\Delta)$$となり，$\Delta_G \subset \Delta$は$G \subset S$とみなせるため，結局$G$上の層$F'$について$\Hom_S(F', \mathcal{O}_S)=0$を証明すればよい．これはSerre dualityより明らか．
 \end{proof}
