@@ -57,6 +57,8 @@
 \DeclareMathOperator{\Ext}{Ext}
 
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\td}{td}
 \DeclareMathOperator{\codim}{codim}
 \DeclareMathOperator{\Cone}{Cone}
 \newcommand{\Extsheaf}{\mathop{\mathcal{E}\! \mathit{xt}}\nolimits}
@@ -70,6 +72,7 @@
 \author{}
 \date{}
 %\maketitle
+\section{自己同値の誘導}
 elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 \begin{theorem}
 	$\pi \colon S \to C$をelliptic surfaceとし，$G \subset S$を$(-2)$-curve，$a \in \mathbb{Z}$を整数とする．このとき$S$のspherical object $\mathcal{O}_G(a)$に付随するtwist functorの核$$P = \Cone(\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \xrightarrow{ev} \mathcal{O}_\Delta)$$は$S\times_C S$上の層である．
@@ -204,6 +207,80 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	という完全列を得る．この図式における$$\Ext^1(F, \mathcal{O}_\Delta) \to \Ext^1(Li^*(i_*F), \mathcal{O}_\Delta)$$はLem.\ref{pullback}より随伴$Li^* \dashv i_*$に付随するcounit射$\varepsilon \colon Li^*(i_*F) \to F$から誘導されるものだから，随伴同型$\Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta) \cong \Ext_X^1(Li^*(i_*F), \mathcal{O}_\Delta)$によりpushforwardが誘導する射$$\Ext_X^1(F, \mathcal{O}_\Delta) \to \Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta)$$と同一視される．よって上の長完全列より，$\Hom(F\otimes L_{|X}, \mathcal{O}_\Delta) =0$であることを証明すれば命題が示されることになる．
 
 	以下それを示す．随伴により$$\Hom_X(F\otimes L_{|X}, \mathcal{O}_\Delta)\cong\Hom_\Delta((F\otimes L_{|X})_{|\Delta}, \mathcal{O}_\Delta)$$だが，$F$は$G \times G \subset X$上の層だったため，$(F\otimes L_{|X})_{|\Delta}$は$(G \times G) \cap \Delta = \Delta_G$上の層$F'$である．よって$$\Hom_\Delta((F\otimes L_{|X})_{|\Delta}, \mathcal{O}_\Delta)=\Hom_\Delta(F', \mathcal{O}_\Delta)$$となり，$\Delta_G \subset \Delta$は$G \subset S$とみなせるため，結局$G$上の層$F'$について$\Hom_S(F', \mathcal{O}_S)=0$を証明すればよい．これはSerre dualityより明らか．
+\end{proof}
+
+\section{誘導される自己同値の計算}
+\subsection{Chern classとRHomの計算}
+\begin{proposition}
+	$S$上のsheafと見たときに
+	\begin{enumerate}
+		\item $c_1(\mathcal{O}_G) = G, c_2(\mathcal{O}_G) = -2, \ch(\mathcal{O}_G) = (0, G, 1)$
+		\item $c_1(\mathcal{O}_x) = 0, c_2(\mathcal{O}_x) = -1, \ch(\mathcal{O}_x) = (0, 0, 1)$
+		\item $c_1(\mathcal{O}_E) = E, c_2(\mathcal{O}_E) = 0, \ch(\mathcal{O}_E) = (0, E, 1)$
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item 完全列$$0 \to \mathcal{O}_S(-G) \to \mathcal{O}_S \to \mathcal{O}_G \to 0$$のtotal Chern classをとると$$1 = c(\mathcal{O}_S) = c(\mathcal{O}_S(-G))c(\mathcal{O}_G)$$で，$c(\mathcal{O}_S(-G)) = 1-G$だから$$c(\mathcal{O}_G) = \frac{1}{1-G} = 1+G+G^2$$これと$G^2=-2$よりよい．
+		\item Grothendieck-Riemann-Rochより$\ch(\mathcal{O}_x)\td(S) = (0, 0, 1)$である．これと$\td(S) = (1, -K_S/2, \chi(\mathcal{O}_S))$からわかる．
+	\end{enumerate}
+\end{proof}
+\begin{proposition}
+	$G$と$G'$はとなりあう$E$の既約成分，$x$は$G$上の点とする．
+	\begin{enumerate}
+		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'}) = \mathbb{C}[-1]$
+		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_E) = \mathbb{C}[-1]\oplus\mathbb{C}[-2]$
+		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_x) = \mathbb{C}\oplus\mathbb{C}[-1]$
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item 順像逆像随伴により$$\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'}) = \Hom_{G'}(\mathcal{O}_{G\cap G'}, \mathcal{O}_{G'}) = 0$$である．また曲面のadjunction formulaより$G.K_S = 0$であることに注意すると
+		      \begin{align*}
+			      \Ext_S^2(\mathcal{O}_G, \mathcal{O}_{G'}) & \cong \Hom_S(\mathcal{O}_{G'}, \mathcal{O}_G \otimes \omega_S)^* \\
+			                                                & =\Hom_S(\mathcal{O}_{G'}, \mathcal{O}_G \otimes \omega_S)^*      \\
+			                                                & =\Hom_S(\mathcal{O}_{G'}, \mathcal{O}_G)^*                       \\
+			                                                & =0
+		      \end{align*}
+		      である．さらにHirzebruch-Riemann-Rochより$\chi(\mathcal{O}_G, \mathcal{O}_{G'}) = -G.G' = -1$だから，$\Ext_S^1(\mathcal{O}_G, \mathcal{O}_{G'}) = \mathbb{C}$である．
+		\item まず\begin{align*}
+			      \Hom_S(\mathcal{O}_G, \mathcal{O}_E) & =\Hom_E(\mathcal{O}_G, \mathcal{O}_E)          \\
+			                                           & \cong \Ext^1_E(\mathcal{O}_E, \mathcal{O}_G)^* \\
+			                                           & \cong H^1(\mathcal{O}_G)^*
+		      \end{align*}
+		      となる．層のコホモロジーは$S$上の層と見て計算できるので，それを計算する．$H^0(\mathcal{O}_G)=\mathbb{C}, H^2(\mathcal{O}_G)=0$と
+		      \begin{align*}
+			      \chi(\mathcal{O}_G) & = \int_S\ch(\mathcal{O}_G)\td(S)                      \\
+			                          & =\int_S(0, G, 1)\cdot(1, -K_S/2, \chi(\mathcal{O}_S)) \\
+			                          & =\int_S(*, *, 1-\frac{1}{2}G.K_S)                     \\
+			                          & =1
+		      \end{align*}
+		      より，$H^1(\mathcal{O}_G) = 0$となる．また$\Ext^2_S(\mathcal{O}_G, \mathcal{O}_E)\cong\Hom_S(\mathcal{O}_E, \mathcal{O}_G\otimes \omega_S)^* =\mathbb{C}$であり，
+		      $$\chi(\mathcal{O}_G, \mathcal{O}_E) = -G.E = 0$$と合わせると$\Ext^1_S(\mathcal{O}_G, \mathcal{O}_E) = \mathbb{C}$がわかる．
+		\item $\Hom_S(\mathcal{O}_G, \mathcal{O}_x) = \mathbb{C}$は明らか．$\Ext^2_S(\mathcal{O}_G, \mathcal{O}_x)\cong \Hom_S(\mathcal{O}_x, \mathcal{O}_G\otimes \omega_S)^*=0$と
+		      \begin{align*}
+			      \chi(\mathcal{O}_G, \mathcal{O}_x) & =\int_S(0, -G, 1)\cdot(0, 0, 1)\cdot(1, -K_S/2, \chi(\mathcal{O}_S)) \\
+			                                         & =\int_S (0, -G, 1)\cdot(0, 0, 1)                                     \\
+			                                         & =0
+		      \end{align*}
+		      より$\Ext^1_S(\mathcal{O}_G, \mathcal{O}_x) = \mathbb{C}$となる．
+	\end{enumerate}
+\end{proof}
+\subsection{自己同値の計算}
+特異ファイバー$E$は$I_n$型（$n\geq 3$）だとする．
+\begin{proposition}
+	$G \subset S$を$(-2)$曲線とし，$T_{\mathcal{O}_G}$が誘導する特異ファイバー$E$の自己同値を$\Phi_G \in \Auteq D^b(E)$とする．このとき
+	\begin{enumerate}
+		\item $\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$
+		\item $G'$を$G$ととなりあう$E$の既約成分とすると，$\Coh(E)$におけるsplitしない完全列$$0 \to \mathcal{O}_{G'} \to \Phi_G(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$がある．
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item twist functorの一般論より，$D^b(S)$において$T_{\mathcal{O}_G}(\mathcal{O}_G) = \mathcal{O}_G[-1]$が成り立つ．さらに$i \colon E \to G$とすると$i_*\circ \Phi_G = T_{\mathcal{O}_G}\circ i_*$である．これにより$i_*\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$となり，$i_*$が複体のコホモロジーを保つことから$\Phi_G(\mathcal{O}_G)$は$1$次にのみコホモロジー$\mathcal{O}_G$をもつ複体であることがわかる．よって$\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$である．
+		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'})$の計算結果より，$D^b(S)$におけるdistinguished triangle
+		      $$ \mathcal{O}_G[-1] \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'})\xrightarrow{+1}$$がある．よって$T_{\mathcal{O}_G}(\mathcal{O}_{G'})$は拡大$$0 \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$により与えられる層で，$\Phi_G(\mathcal{O}_G)$はpushforwardでそこに行く$E$上の層である．よって完全列$$0 \to \mathcal{O}_{G'} \to \Phi_G(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$があり，$\mathcal{O}_{G'}$がindecomposableなことからsplitしない．
+	\end{enumerate}
 \end{proof}
 \begin{thebibliography}{99}
 	\bibitem[Ueh15]{Ueh15} H. Uehara, \textit{Autoequivalences of derived categories of elliptic surfaces with non-zero Kodaira dimension},arXiv e-prints (2021), arXiv:1501.06657v2.
