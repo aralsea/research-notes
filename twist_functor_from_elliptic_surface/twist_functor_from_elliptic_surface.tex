@@ -166,7 +166,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	となり，Lem.\ref{counit_map}より$\mathcal{H}^0(\varepsilon)$は同型だから，$C \cong (F \otimes L_{|X})[1]$となる．
 \end{proof}
 \begin{lemma}\label{boxtimes_is_a_sheaf}
-	$G \subset S$が$(-2)$-curveで$a \in \mathbb{Z}$のとき，$\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \in D^b(S\times S)$は$G\times G$上の層の$-1$シフト（のpushforward）である．
+	$G \subset S$が$(-2)$-curveで$a \in \mathbb{Z}$のとき，$\mathcal{O}_G(a)^\vee \boxtimes \mathcal{O}_G(a) \in D^b(S\times S)$は$G\times G$上の層の$-1$シフト（のpushforward）である．
 \end{lemma}
 \begin{proof}
 	$S$上のdivisor $D$であって$G.D = a$であるものを1つとる．（$G.G = -2 \neq 0$とPoincaré dualityにより必ずとれる．）このとき$\mathcal{O}_S(D)_{|G} \cong \mathcal{O}_G(a)$である．完全列$$0 \to \mathcal{O}_S(-G) \to \mathcal{O}_S \to \mathcal{O}_G \to 0$$より，$D^b(S)$において$$\mathcal{O}_G(a) \cong (\cdots \to 0 \to \mathcal{O}_S(D-G) \to \mathcal{O}_S(D) \to 0 \to \cdots)$$となる（右辺は$0$次に$\mathcal{O}_S(D)$があるcomplex）．よって
@@ -176,22 +176,22 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	\end{align*}
 	となる．すると
 	\begin{align*}
-		 & \mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee                                                                               \\
-		 & \cong p_1^*\mathcal{O}_S(D)_{|G} \otimes^L p_2^*\mathcal{O}_S(G-D)_{|G}[-1]                                                    \\
-		 & \cong \mathcal{O}_{S\times S}(D\times S)_{|G\times S} \otimes^L \mathcal{O}_{S\times S}(S\times G-S \times D)_{|S\times G}[-1] \\
+		 & \mathcal{O}_G(a)^\vee \boxtimes \mathcal{O}_G(a)                                                                                 \\
+		 & \cong p_1^*\mathcal{O}_S(G-D)_{|G} \otimes^L p_2^*\mathcal{O}_S(D)_{|G}[-1]                                                      \\
+		 & \cong \mathcal{O}_{S\times S}(G\times S - D\times S)_{|G\times S} \otimes^L \mathcal{O}_{S\times S}(S \times D)_{|S\times G}[-1] \\
 	\end{align*}
 	となる．よってderived tensorのhigher cohomologyが消えていることを示せばこれは
 	\begin{align*}
-		 & \mathcal{O}_{S\times S}(D\times S)_{|G\times S} \otimes \mathcal{O}_{S\times S}(S\times G-S \times D)_{|S\times G}[-1] \\
-		 & = \mathcal{O}_{S\times S}(D\times S +S\times G-S \times D)_{|G\times G}[-1]
+		 & \mathcal{O}_{S\times S}(G\times S - D\times S)_{|G\times S} \otimes \mathcal{O}_{S\times S}(S \times D)_{|S\times G}[-1] \\
+		 & = \mathcal{O}_{S\times S}(G\times S - D\times S+S \times D)_{|G\times G}[-1]
 	\end{align*}
-	となり命題が示される．問題はlocalなので$\mathcal{O}_{S\times S}(D\times S)_{|G\times S}$と$\mathcal{O}_{S\times S}(S\times G-S \times D)_{|S\times G}$はそれぞれ$\mathcal{O}_{G\times S}$と$\mathcal{O}_{S\times G}$だと思ってよく，すると$G \times S$と$S \times G$が$S \times S$の中でtransversal intersectionなので全ての$q>0$について$$\Torsheaf_q^{\mathcal{O}_{S\times S}}(\mathcal{O}_{G\times S}, \mathcal{O}_{S\times G})=0$$となりderived tensorのhigher cohomologyが消えていることがわかる．
+	となり命題が示される．問題はlocalなので$\mathcal{O}_{S\times S}(D\times S)_{|G\times S - D\times S}$と$\mathcal{O}_{S\times S}(S \times D)_{|S\times G}$はそれぞれ$\mathcal{O}_{G\times S}$と$\mathcal{O}_{S\times G}$だと思ってよく，すると$G \times S$と$S \times G$が$S \times S$の中でtransversal intersectionなので全ての$q>0$について$$\Torsheaf_q^{\mathcal{O}_{S\times S}}(\mathcal{O}_{G\times S}, \mathcal{O}_{S\times G})=0$$となりderived tensorのhigher cohomologyが消えていることがわかる．
 \end{proof}
 \begin{theorem}
-	$\pi \colon S \to C$をelliptic surfaceとし，$G \subset S$を$(-2)$-curve，$a \in \mathbb{Z}$を整数とする．このとき$S$のspherical object $\mathcal{O}_G(a)$に付随するtwist functorの核$$P = \Cone(\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \xrightarrow{ev} \mathcal{O}_\Delta)$$は$S\times_C S$上のcomplex（より強く，層）のpushforwardである．
+	$\pi \colon S \to C$をelliptic surfaceとし，$G \subset S$を$(-2)$-curve，$a \in \mathbb{Z}$を整数とする．このとき$S$のspherical object $\mathcal{O}_G(a)$に付随するtwist functorの核$$P = \Cone(\mathcal{O}_G(a)^\vee \boxtimes \mathcal{O}_G(a) \xrightarrow{ev} \mathcal{O}_\Delta)$$は$S\times_C S$上のcomplex（より強く，層）のpushforwardである．
 \end{theorem}
 \begin{proof}
-	Lem.\ref{boxtimes_is_a_sheaf}より，$G\times G$上の層$F$を用いて$\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \cong F[-1]$と表せる．よって$D^b(S \times S)$におけるdistinguished triangle$$F[-1] \xrightarrow{ev} \mathcal{O}_\Delta \to P \xrightarrow{+1} F$$がある．ここでもし$ev \in \Hom_{D^b(S\times S)}(F[-1], \mathcal{O}_\Delta)$が$\Hom_{D^b(S\times_C S)}(F[-1], \mathcal{O}_\Delta)$の元の像だったとすると，$D^b(S\times_C S)$でのCone$$P' = \Cone(\mathcal{O}_G(a) \boxtimes \mathcal{O}_G(a)^\vee \xrightarrow{ev} \mathcal{O}_\Delta)$$を$D^b(S\times S)$にpushしたものは$P$と同型になる．よってinclusion $S\times_C S \to S\times S$による（derived）pushforwardが誘導する射$$\Hom_{D^b(S\times_C S)}(F[-1], \mathcal{O}_\Delta) \to \Hom_{D^b(S\times S)}(F[-1], \mathcal{O}_\Delta)$$が全射であることを証明すれば定理が示される．
+	Lem.\ref{boxtimes_is_a_sheaf}より，$G\times G$上の層$F$を用いて$\mathcal{O}_G(a)^\vee \boxtimes \mathcal{O}_G(a)\cong F[-1]$と表せる．よって$D^b(S \times S)$におけるdistinguished triangle$$F[-1] \xrightarrow{ev} \mathcal{O}_\Delta \to P \xrightarrow{+1} F$$がある．ここでもし$ev \in \Hom_{D^b(S\times S)}(F[-1], \mathcal{O}_\Delta)$が$\Hom_{D^b(S\times_C S)}(F[-1], \mathcal{O}_\Delta)$の元の像だったとすると，$D^b(S\times_C S)$でのCone$$P' = \Cone(\mathcal{O}_G(a)^\vee \boxtimes \mathcal{O}_G(a) \xrightarrow{ev} \mathcal{O}_\Delta)$$を$D^b(S\times S)$にpushしたものは$P$と同型になる．よってinclusion $S\times_C S \to S\times S$による（derived）pushforwardが誘導する射$$\Hom_{D^b(S\times_C S)}(F[-1], \mathcal{O}_\Delta) \to \Hom_{D^b(S\times S)}(F[-1], \mathcal{O}_\Delta)$$が全射であることを証明すれば定理が示される．
 
 	以下$X=S\times_C S$，$ Y=S\times S$とおき，$i \colon X \to Y$を自然なinclusionとする．
 	Lem.\ref{pullback}の distinguished triangle に $R\Hom(-, \mathcal{O}_\Delta)$をあてると
@@ -266,6 +266,33 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 		      より$\Ext^1_S(\mathcal{O}_G, \mathcal{O}_x) = \mathbb{C}$となる．
 	\end{enumerate}
 \end{proof}
+
+\begin{proposition}
+	$G$と$G'$をとなりあう$E$の既約成分とし，$G \cap G' = \{s\}$とする．
+	\begin{enumerate}
+		\item $\Ext^i_E(\mathcal{O}_G, \mathcal{O}_{G'}) = \left \{
+			      \begin{array}{ll}
+				      0          & (i<0 \text{または $i$ が偶数}) \\
+				      \mathbb{C} & (\text{ $ i $ が正の奇数})
+			      \end{array}
+			      \right.$
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item local-to-global spectral sequenceより，$$\Extsheaf^i_E(\mathcal{O}_G, \mathcal{O}_{G'}) = \left \{
+			      \begin{array}{ll}
+				      0             & (i<0 \text{または $i$ が偶数}) \\
+				      \mathcal{O}_s & (\text{ $ i $ が正の奇数})
+			      \end{array}
+			      \right.$$を示せば十分である．左辺のsupportは$s$だから，$s$でのstalkを計算すればよい．そこで$s$の周りの$E$の座標として$E = \Spec \mathbb{C}[x,y]/(xy), G = \{x = 0\}, G'=\{y=0\}, s = (0, 0)$となるようなものをとれば，$A=(\mathbb{C}[x,y]/(xy))_{(x,y)}$として$$\Extsheaf^i_E(\mathcal{O}_G, \mathcal{O}_{G'})_s \cong \Ext^i_A(A/x, A/y)$$を計算すればよいことになる．$A/x$の射影分解$$\cdots\to A \xrightarrow{y}A \xrightarrow{x} A \to A/x\to 0$$により$\Ext^i_A(A/x, A/y)$は複体$$0 \to A/y \xrightarrow{x} A/y \xrightarrow{y} A/y \to \cdots$$の$i$次コホモロジーだから，$$ \Ext^i_A(A/x, A/y) = \left \{
+			      \begin{array}{ll}
+				      0          & (i<0 \text{または $i$ が偶数}) \\
+				      \mathbb{C} & (\text{ $ i $ が正の奇数})
+			      \end{array}
+			      \right.$$となる．
+	\end{enumerate}
+\end{proof}
 \subsection{自己同値の計算}
 特異ファイバー$E$は$I_n$型（$n\geq 3$）だとする．
 \begin{proposition}
@@ -279,9 +306,15 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	\begin{enumerate}
 		\item twist functorの一般論より，$D^b(S)$において$T_{\mathcal{O}_G}(\mathcal{O}_G) = \mathcal{O}_G[-1]$が成り立つ．さらに$i \colon E \to G$とすると$i_*\circ \Phi_G = T_{\mathcal{O}_G}\circ i_*$である．これにより$i_*\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$となり，$i_*$が複体のコホモロジーを保つことから$\Phi_G(\mathcal{O}_G)$は$1$次にのみコホモロジー$\mathcal{O}_G$をもつ複体であることがわかる．よって$\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$である．
 		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'})$の計算結果より，$D^b(S)$におけるdistinguished triangle
-		      $$ \mathcal{O}_G[-1] \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'})\xrightarrow{+1}.$$がある．よって$T_{\mathcal{O}_G}(\mathcal{O}_{G'})$は拡大$$0 \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$により与えられる層で，$\Phi_G(\mathcal{O}_G)$はpushforwardでそこに行く$E$上の層である．よって完全列$$0 \to \mathcal{O}_{G'} \to \Phi_G(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$があり，$\mathcal{O}_{G'}$がindecomposableなことからsplitしない．
+		      $$ \mathcal{O}_G[-1] \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'})\xrightarrow{+1}.$$
+		      がある．よって$T_{\mathcal{O}_G}(\mathcal{O}_{G'})$は拡大$$0 \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$により与えられる$S$上の層で，$\Phi_G(\mathcal{O}_G)$はpushforwardでそこに行く$E$上の複体（よって層）である．
+		      一方Lem.\ref{pullback}と同じ議論を$E \subset S$に適用することでpushforward $$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_{G'}) \to \Ext^1_S(\mathcal{O}_G, \mathcal{O}_{G'}) $$が単射であることがわかり，$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_{G'}) = \mathbb{C}$，$\Ext^1_S(\mathcal{O}_G, \mathcal{O}_{G'}) =\mathbb{C}$であることと合わせるとpushforward $$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_{G'}) \to \Ext^1_S(\mathcal{O}_G, \mathcal{O}_{G'}) $$が同型であることがわかる．よって$E$における非自明な層の拡大$$0 \to \mathcal{O}_{G'} \to F \to \mathcal{O}_G \to 0$$であって$S$にpushすると$F \cong T_{\mathcal{O}_G}(\mathcal{O}_{G'})$となるものがある．つまり$F, \Phi_G(\mathcal{O}_G)$は$E$上の層で$S$にpushすると同型になるものだから，pushする前でも同型である．よって命題の完全列が存在する．
 	\end{enumerate}
 \end{proof}
+
+\begin{proposition}
+
+\end{proposition}
 \begin{thebibliography}{99}
 	\bibitem[Ueh15]{Ueh15} H. Uehara, \textit{Autoequivalences of derived categories of elliptic surfaces with non-zero Kodaira dimension},arXiv e-prints (2021), arXiv:1501.06657v2.
 \end{thebibliography}
