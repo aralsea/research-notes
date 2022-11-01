@@ -48,6 +48,7 @@
 \renewcommand{\abstractname}{}
 \renewcommand{\theenumi}{(\arabic{enumi})}
 \renewcommand{\labelenumi}{(\arabic{enumi})}
+\newenvironment{sumipmatrix}{\left ( \begin{smallmatrix}} {\end{smallmatrix}\right )}
 
 \newcommand{\emphasis}[1]{\textgt{\textcolor{magenta}{#1}}}
 \DeclareMathOperator{\Aut}{Aut}
@@ -215,14 +216,18 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	$S$上のsheafと見たときに
 	\begin{enumerate}
 		\item $c_1(\mathcal{O}_G) = G, c_2(\mathcal{O}_G) = -2, \ch(\mathcal{O}_G) = (0, G, 1)$
+
 		\item $c_1(\mathcal{O}_x) = 0, c_2(\mathcal{O}_x) = -1, \ch(\mathcal{O}_x) = (0, 0, 1)$
+		\item $c_1(\mathcal{O}_G(-1)) = G, c_2(\mathcal{O}_G(-1)) = -1, \ch(\mathcal{O}_G(-1)) = (0, G, 0)$
 		\item $c_1(\mathcal{O}_E) = E, c_2(\mathcal{O}_E) = 0, \ch(\mathcal{O}_E) = (0, E, 1)$
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
 	\begin{enumerate}
 		\item 完全列$$0 \to \mathcal{O}_S(-G) \to \mathcal{O}_S \to \mathcal{O}_G \to 0$$のtotal Chern classをとると$$1 = c(\mathcal{O}_S) = c(\mathcal{O}_S(-G))c(\mathcal{O}_G)$$で，$c(\mathcal{O}_S(-G)) = 1-G$だから$$c(\mathcal{O}_G) = \frac{1}{1-G} = 1+G+G^2$$これと$G^2=-2$よりよい．
+
 		\item Grothendieck-Riemann-Rochより$\ch(\mathcal{O}_x)\td(S) = (0, 0, 1)$である．これと$\td(S) = (1, -K_S/2, \chi(\mathcal{O}_S))$からわかる．
+		\item 完全列$$0 \to \mathcal{O}_G(-1) \to \mathcal{O}_G \to \mathcal{O}_x \to 0$$より$$\ch( \mathcal{O}_G(-1)) = \ch(\mathcal{O}_G) - \ch(\mathcal{O}_x) = (0, G, 0)$$である．ここから$c_1(\mathcal{O}_G(-1)) = G, c_2(\mathcal{O}_G(-1)) = -1$もわかる．
 	\end{enumerate}
 \end{proof}
 \begin{proposition}
@@ -231,11 +236,15 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'}) = \mathbb{C}[-1]$
 		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_E) = \mathbb{C}[-1]\oplus\mathbb{C}[-2]$
 		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_x) = \mathbb{C}\oplus\mathbb{C}[-1]$
+		\item $R\Hom_S(\mathcal{O}_G(-1), \mathcal{O}_{G'}(-1)) = \mathbb{C}[-1]$
+		\item $R\Hom_S(\mathcal{O}_G(-1), \mathcal{O}_E) = 0$
+		\item $R\Hom_S(\mathcal{O}_G(-1), \mathcal{O}_x) = \mathbb{C}\oplus\mathbb{C}[-1]$
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
+	曲面のadjunction formulaより$G.K_S = 0$だから，$\mathcal{O}_G \otimes \omega_S \cong \mathcal{O}_G$となることに注意する．
 	\begin{enumerate}
-		\item 順像逆像随伴により$$\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'}) = \Hom_{G'}(\mathcal{O}_{G\cap G'}, \mathcal{O}_{G'}) = 0$$である．また曲面のadjunction formulaより$G.K_S = 0$であることに注意すると
+		\item 順像逆像随伴により$$\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'}) = \Hom_{G'}(\mathcal{O}_{G\cap G'}, \mathcal{O}_{G'}) = 0$$である．またと
 		      \begin{align*}
 			      \Ext_S^2(\mathcal{O}_G, \mathcal{O}_{G'}) & \cong \Hom_S(\mathcal{O}_{G'}, \mathcal{O}_G \otimes \omega_S)^* \\
 			                                                & =\Hom_S(\mathcal{O}_{G'}, \mathcal{O}_G \otimes \omega_S)^*      \\
@@ -246,16 +255,11 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 		\item まず\begin{align*}
 			      \Hom_S(\mathcal{O}_G, \mathcal{O}_E) & =\Hom_E(\mathcal{O}_G, \mathcal{O}_E)          \\
 			                                           & \cong \Ext^1_E(\mathcal{O}_E, \mathcal{O}_G)^* \\
-			                                           & \cong H^1(\mathcal{O}_G)^*
+			                                           & \cong H^1(\mathcal{O}_G)^*                     \\
+			                                           & \cong H^1(\mathcal{O}_{\mathbb{P}^1})^*        \\
+			                                           & =0
 		      \end{align*}
-		      となる．層のコホモロジーは$S$上の層と見て計算できるので，それを計算する．$H^0(\mathcal{O}_G)=\mathbb{C}, H^2(\mathcal{O}_G)=0$と
-		      \begin{align*}
-			      \chi(\mathcal{O}_G) & = \int_S\ch(\mathcal{O}_G)\td(S)                      \\
-			                          & =\int_S(0, G, 1)\cdot(1, -K_S/2, \chi(\mathcal{O}_S)) \\
-			                          & =\int_S(*, *, 1-\frac{1}{2}G.K_S)                     \\
-			                          & =1
-		      \end{align*}
-		      より，$H^1(\mathcal{O}_G) = 0$となる．また$\Ext^2_S(\mathcal{O}_G, \mathcal{O}_E)\cong\Hom_S(\mathcal{O}_E, \mathcal{O}_G\otimes \omega_S)^* =\mathbb{C}$であり，
+		      となる．また$\Ext^2_S(\mathcal{O}_G, \mathcal{O}_E)\cong\Hom_S(\mathcal{O}_E, \mathcal{O}_G\otimes \omega_S)^* =\mathbb{C}$であり，
 		      $$\chi(\mathcal{O}_G, \mathcal{O}_E) = -G.E = 0$$と合わせると$\Ext^1_S(\mathcal{O}_G, \mathcal{O}_E) = \mathbb{C}$がわかる．
 		\item $\Hom_S(\mathcal{O}_G, \mathcal{O}_x) = \mathbb{C}$は明らか．$\Ext^2_S(\mathcal{O}_G, \mathcal{O}_x)\cong \Hom_S(\mathcal{O}_x, \mathcal{O}_G\otimes \omega_S)^*=0$と
 		      \begin{align*}
@@ -264,31 +268,107 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 			                                         & =0
 		      \end{align*}
 		      より$\Ext^1_S(\mathcal{O}_G, \mathcal{O}_x) = \mathbb{C}$となる．
+		\item (1)と同様に$\Hom_S=0, \Ext^2_S = 0$であり，$\chi(\mathcal{O}_G(-1), \mathcal{O}_{G'}(-1)) =-G.G' = -1$だからよい．
+		\item (2)と同様に\begin{align*}
+			      \Hom_S(\mathcal{O}_G(-1), \mathcal{O}_E) & \cong \Hom_E(\mathcal{O}_G(-1),\mathcal{O}_E)      \\
+			                                               & \cong \Ext^1_E(\mathcal{O}_E, \mathcal{O}_G(-1))^* \\
+			                                               & \cong H^1(\mathcal{O}_G(-1))^*                     \\
+			                                               & \cong H^1(\mathcal{O}_{\mathbb{P}^1}(-1))^*        \\
+			                                               & =0
+		      \end{align*}
+		      \begin{align*}
+			      \Ext^2_S(\mathcal{O}_G(-1), \mathcal{O}_E) & \cong \Hom_S(\mathcal{O}_E, \mathcal{O}_G(-1)) \\
+			                                                 & =H^0(\mathcal{O}_G(-1))                        \\
+			                                                 & =0
+		      \end{align*}
+		      かつ$\chi(\mathcal{O}_E, \mathcal{O}_G(-1)) = -G.E = 0$となる．
+		\item (3)と全く同じ．
 	\end{enumerate}
 \end{proof}
 
+
 \begin{proposition}
-	$G$と$G'$をとなりあう$E$の既約成分とし，$G \cap G' = \{s\}$とする．
+	$G$と$G'$をとなりあう$E$の既約成分とし，$G$と$G'$の交点であるような特異点を$s$，$s$でない$G$上のもう一方の特異点を$t$とする．また$a, b \in \mathbb{Z}$とする．
 	\begin{enumerate}
-		\item $\Ext^i_E(\mathcal{O}_G, \mathcal{O}_{G'}) = \left \{
+		\item $R\Hom_E(\mathcal{O}_G(a), \mathcal{O}_{G'}(b)) = \bigoplus_{i=1}^\infty \mathbb{C}[-(2i-1)]$つまり$$\Ext^i_E(\mathcal{O}_G(a), \mathcal{O}_{G'}(b)) = \left \{
 			      \begin{array}{ll}
 				      0          & (i<0 \text{または $i$ が偶数}) \\
-				      \mathbb{C} & (\text{ $ i $ が正の奇数})
+				      \mathbb{C} & (\text{ $i$ が正の奇数})
 			      \end{array}
-			      \right.$
+			      \right.$$
+		\item $R\Hom_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) = H^0(\mathcal{O}_G(b-a)) \oplus \bigoplus_{i=1}^\infty \mathbb{C}[-2i]$つまり$$\Ext^i_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) =\left \{
+			      \begin{array}{ll}
+				      H^0(\mathcal{O}_G(b-a)) & (i=0)                            \\
+				      0                       & (i < 0 \text{または $i$ が奇数}) \\
+				      \mathbb{C}^2            & (\text{ $i$ が正の偶数})
+			      \end{array}
+			      \right.$$
+		\item $R\Hom_E(\mathcal{O}_G(a), \mathcal{O}_s) = \bigoplus_{i=0}^\infty \mathbb{C}[-i]$つまり$$\Ext^i_E(\mathcal{O}_G(a), \mathcal{O}_s) =\left \{
+			      \begin{array}{ll}
+				      0          & (i< 0)    \\
+				      \mathbb{C} & (i\geq 0)
+			      \end{array}
+			      \right.$$
+		\item $R\Hom_E(\mathcal{O}_s, \mathcal{O}_G(a)) = \bigoplus_{i=1}^\infty \mathbb{C}[-i]$つまり$$\Ext^i_E(\mathcal{O}_s, \mathcal{O}_G(a)) =\left \{
+			      \begin{array}{ll}
+				      0          & (i\leq 0) \\
+				      \mathbb{C} & (i>0)
+			      \end{array}
+			      \right.$$
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
 	\begin{enumerate}
-		\item local-to-global spectral sequenceより，$$\Extsheaf^i_E(\mathcal{O}_G, \mathcal{O}_{G'}) = \left \{
+		\item local-to-global spectral sequenceより，$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G'}(b)) = \left \{
 			      \begin{array}{ll}
 				      0             & (i<0 \text{または $i$ が偶数}) \\
 				      \mathcal{O}_s & (\text{ $ i $ が正の奇数})
 			      \end{array}
-			      \right.$$を示せば十分である．左辺のsupportは$s$だから，$s$でのstalkを計算すればよい．そこで$s$の周りの$E$の座標として$E = \Spec \mathbb{C}[x,y]/(xy), G = \{x = 0\}, G'=\{y=0\}, s = (0, 0)$となるようなものをとれば，$A=(\mathbb{C}[x,y]/(xy))_{(x,y)}$として$$\Extsheaf^i_E(\mathcal{O}_G, \mathcal{O}_{G'})_s \cong \Ext^i_A(A/x, A/y)$$を計算すればよいことになる．$A/x$の射影分解$$\cdots\to A \xrightarrow{y}A \xrightarrow{x} A \to A/x\to 0$$により$\Ext^i_A(A/x, A/y)$は複体$$0 \to A/y \xrightarrow{x} A/y \xrightarrow{y} A/y \to \cdots$$の$i$次コホモロジーだから，$$ \Ext^i_A(A/x, A/y) = \left \{
+			      \right.$$を示せば十分である．左辺のsupportは$s$だから$s$でのstalkを計算すればよく，特に$a=b=0$としてよい．そこで$s$の周りの$E$の座標として$E = \Spec \mathbb{C}[x,y]/(xy), G = \{x = 0\}, G'=\{y=0\}, s = (0, 0)$となるようなものをとれば，$A=(\mathbb{C}[x,y]/(xy))_{(x,y)}$として$$\Extsheaf^i_E(\mathcal{O}_G, \mathcal{O}_{G'})_s \cong \Ext^i_A(A/x, A/y)$$を計算すればよいことになる．$A/x$の射影分解$$\cdots\to A \xrightarrow{y}A \xrightarrow{x} A \to A/x\to 0$$により$\Ext^i_A(A/x, A/y)$は複体$$0 \to A/y \xrightarrow{x} A/y \xrightarrow{y} A/y \to \cdots$$の$i$次コホモロジーだから，$$ \Ext^i_A(A/x, A/y) = \left \{
 			      \begin{array}{ll}
 				      0          & (i<0 \text{または $i$ が偶数}) \\
 				      \mathbb{C} & (\text{ $ i $ が正の奇数})
+			      \end{array}
+			      \right.$$となる．
+		\item $i=0$については明らかなので，以下$i>0$とする．まず$x \in E\backslash\{s, t\}$について，$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x =0$$である．よって$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))$のsupportは$\{s, t\}$であることがわかる．$x \in \{s, t\}$のとき(1)と同様に考えると$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x \cong \Ext^i_A(A/x, A/x)$$となり，(1)と同じ射影分解によって$$ \Ext^i_A(A/x, A/x) = \left \{
+			      \begin{array}{ll}
+				      0          & (\text{$i$が正の奇数}) \\
+				      \mathbb{C} & (\text{$i$が正の偶数})
+			      \end{array}
+			      \right.$$と計算できる．
+		\item (1)と同様に考えると，$\Ext^i_A(A/(x, y), A/y)$を計算すればよいことがわかる．(1)と同じ射影分解によって，複体$$0 \to A/(x,y) \xrightarrow{x} A/(x,y)\xrightarrow{y} A/(x,y)\xrightarrow{x
+			      } \cdots$$のコホモロジーを計算すればよく，$$ \Ext^i_A(A/(x,y), A/x) = \left \{
+			      \begin{array}{ll}
+				      0          & (i< 0)    \\
+				      \mathbb{C} & (i\geq 0)
+			      \end{array}
+			      \right.$$となる．
+		\item (1)と同様に考えると，$\Ext^i_A(A/(x, y), A/y)$を計算すればよいことがわかる．$A/(x,y)$の射影分解
+		      $$\cdots A^2\xrightarrow{\begin{sumipmatrix}
+					      x & 0 \\
+					      0 & y \\
+				      \end{sumipmatrix}
+			      }A^2\xrightarrow{\begin{sumipmatrix}
+					      y & 0 \\
+					      0 & x \\
+				      \end{sumipmatrix}
+			      } A^2 \xrightarrow{(x,y)} A \to A/(x,y)\to 0
+		      $$を使うと，複体$$0 \to A/x \xrightarrow{\begin{sumipmatrix}
+					      x \\
+					      y \\
+				      \end{sumipmatrix}
+			      } (A/x)^2\xrightarrow{\begin{sumipmatrix}
+					      y & 0 \\
+					      0 & x \\
+				      \end{sumipmatrix}
+			      } (A/x)^2 \xrightarrow{\begin{sumipmatrix}
+					      x & 0 \\
+					      0 & y \\
+				      \end{sumipmatrix}
+			      } (A/x)^2 \to \cdots$$のコホモロジーを計算すればよく，$$ \Ext^i_A(A/(x,y), A/x) = \left \{
+			      \begin{array}{ll}
+				      0          & (i\leq 0) \\
+				      \mathbb{C} & (i>0)
 			      \end{array}
 			      \right.$$となる．
 	\end{enumerate}
@@ -296,24 +376,284 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 \subsection{自己同値の計算}
 特異ファイバー$E$は$I_n$型（$n\geq 3$）だとする．
 \begin{proposition}
-	$G \subset S$を$(-2)$曲線とし，$T_{\mathcal{O}_G}$が誘導する特異ファイバー$E$の自己同値を$\Phi_G \in \Auteq D^b(E)$とする．このとき
+	$G \subset S$を$(-2)$曲線とし，$T_{\mathcal{O}_G(-1)}$が誘導する特異ファイバー$E$の自己同値を$\Phi_G \in \Auteq D^b(E)$とする．このとき
 	\begin{enumerate}
-		\item $\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$
-		\item $G'$を$G$ととなりあう$E$の既約成分とすると，$\Coh(E)$におけるsplitしない完全列$$0 \to \mathcal{O}_{G'} \to \Phi_G(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$がある．
+		\item $\Phi_G(\mathcal{O}_G(-1)) = \mathcal{O}_G(-1)[-1]$
+		\item $\Phi_G(\mathcal{O}_E) = \mathcal{O}_E$
+		\item $G'$を$G$ととなりあう$E$の既約成分とすると，$\Coh(E)$におけるsplitしない完全列$$0 \to \mathcal{O}_{G'}(-1) \to \Phi_G(\mathcal{O}_{G'}(-1)) \to \mathcal{O}_G(-1) \to 0$$がある．
+		\item $x$を$G$上の非特異閉点とすると，$D^b(E)$におけるdistinguished triangle$$\mathcal{O}_G(-2)[1]\to \Phi_G(\mathcal{O}_x)\to \mathcal{O}_G(-1) \xrightarrow{+1} $$がある．
+		      %\item $D^b(E)$におけるdistinguished triangle$$H\to \Phi_G(\mathcal{O}_E)\to \mathcal{O}_G[-1] \xrightarrow{+1} $$が存在する．ここで$H$は$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_E) = \mathbb{C}$の$0$でない元に対応する非自明な拡大$$0 \to \mathcal{O}_E \to H \to \mathcal{O}_G \to 0$$から得られる$E$上の層である．
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
 	\begin{enumerate}
-		\item twist functorの一般論より，$D^b(S)$において$T_{\mathcal{O}_G}(\mathcal{O}_G) = \mathcal{O}_G[-1]$が成り立つ．さらに$i \colon E \to G$とすると$i_*\circ \Phi_G = T_{\mathcal{O}_G}\circ i_*$である．これにより$i_*\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$となり，$i_*$が複体のコホモロジーを保つことから$\Phi_G(\mathcal{O}_G)$は$1$次にのみコホモロジー$\mathcal{O}_G$をもつ複体であることがわかる．よって$\Phi_G(\mathcal{O}_G) = \mathcal{O}_G[-1]$である．
-		\item $R\Hom_S(\mathcal{O}_G, \mathcal{O}_{G'})$の計算結果より，$D^b(S)$におけるdistinguished triangle
-		      $$ \mathcal{O}_G[-1] \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'})\xrightarrow{+1}.$$
-		      がある．よって$T_{\mathcal{O}_G}(\mathcal{O}_{G'})$は拡大$$0 \to \mathcal{O}_{G'} \to T_{\mathcal{O}_G}(\mathcal{O}_{G'}) \to \mathcal{O}_G \to 0$$により与えられる$S$上の層で，$\Phi_G(\mathcal{O}_G)$はpushforwardでそこに行く$E$上の複体（よって層）である．
-		      一方Lem.\ref{pullback}と同じ議論を$E \subset S$に適用することでpushforward $$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_{G'}) \to \Ext^1_S(\mathcal{O}_G, \mathcal{O}_{G'}) $$が単射であることがわかり，$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_{G'}) = \mathbb{C}$，$\Ext^1_S(\mathcal{O}_G, \mathcal{O}_{G'}) =\mathbb{C}$であることと合わせるとpushforward $$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_{G'}) \to \Ext^1_S(\mathcal{O}_G, \mathcal{O}_{G'}) $$が同型であることがわかる．よって$E$における非自明な層の拡大$$0 \to \mathcal{O}_{G'} \to F \to \mathcal{O}_G \to 0$$であって$S$にpushすると$F \cong T_{\mathcal{O}_G}(\mathcal{O}_{G'})$となるものがある．つまり$F, \Phi_G(\mathcal{O}_G)$は$E$上の層で$S$にpushすると同型になるものだから，pushする前でも同型である．よって命題の完全列が存在する．
+		\item twist functorの一般論より，$D^b(S)$において$T_{\mathcal{O}_G(-1)}(\mathcal{O}_G(-1)) = \mathcal{O}_G[-1](-1)$が成り立つ．さらに$i \colon E \to G$とすると$i_*\circ \Phi_G = T_{\mathcal{O}_G(-1)}\circ i_*$である．これにより$i_*\Phi_G(\mathcal{O}_G(-1)) = \mathcal{O}_G(-1[-1]$となり，$i_*$が複体のコホモロジーを保つことから$\Phi_G(\mathcal{O}_G)$は$1$次にのみコホモロジー$\mathcal{O}_G$をもつ複体であることがわかる．よって$\Phi_G(\mathcal{O}_G(-1)) = \mathcal{O}_G(-1)[-1]$である．
+		\item $R\Hom_S(\mathcal{O}_G(-1), \mathcal{O}_E)=0$なのでよい．
+		\item $R\Hom_S(\mathcal{O}_G(-1), \mathcal{O}_{G'}(-1))$の計算結果より，$D^b(S)$におけるdistinguished triangle
+		      $$ \mathcal{O}_G(-1)[-1] \to \mathcal{O}_{G'}(-1) \to T_{\mathcal{O}_G(-1)}(\mathcal{O}_{G'}(-1))\xrightarrow{+1}$$
+		      がある．よって$T_{\mathcal{O}_G(-1)}(\mathcal{O}_{G'}(-1))$は拡大$$0 \to \mathcal{O}_{G'}(-1) \to T_{\mathcal{O}_G(-1)}(\mathcal{O}_{G'}(-1)) \to \mathcal{O}_G(-1) \to 0$$により与えられる$S$上の層で，$\Phi_G(\mathcal{O}_G(-1))$はpushforwardでそこに行く$E$上の複体（よって層）である．
+		      つまり上の完全列には$E$上の層のみが登場するから，$E$上の完全列をpushしたものだとみなせる．よって求める完全列が存在する．splitしないことは$\Phi_G(\mathcal{O}_{G'}(-1))$がsimpleなことからわかる．
+		\item$D^b(S)$におけるdistinguished triangle
+		      $$ \mathcal{O}_G(-1) \oplus \mathcal{O}_G(-1)[-1] \to \mathcal{O}_x \to T_{\mathcal{O}_G(-1)}(\mathcal{O}_x)\xrightarrow{+1}$$のコホモロジー長完全列
+		      \[
+			      \begin{array}{ccccccc}
+				       &     &                   &     & 0             & \to & \mathcal{H}^{-1}(T_{\mathcal{O}_G(-1)}(\mathcal{O}_x)) \\
+
+				       & \to & \mathcal{O}_G(-1) & \to & \mathcal{O}_x & \to & \mathcal{H}^0(T_{\mathcal{O}_G(-1)}(\mathcal{O}_x))    \\
+				       & \to & \mathcal{O}_G(-1) & \to & 0             &     &                                                        \\
+			      \end{array}
+		      \]
+		      と層の同型$\mathcal{H}^i(T_{\mathcal{O}_G(-1)}(\mathcal{O}_x)) \cong \mathcal{H}^i(\Phi_G(\mathcal{O}_x))$より，$$\mathcal{H}^i(\Phi_G(\mathcal{O}_x)) = \left \{
+			      \begin{array}{ll}
+				      \mathcal{O}_G(-2) & (i=-1)             \\
+				      \mathcal{O}_G(-1) & (i=0)              \\
+				      0                 & (\text{otherwise})
+			      \end{array}
+			      \right.$$
+		      がわかる．よってdistinguished triangle
+		      $$\mathcal{O}_G(-2)[1]\to \Phi_G(\mathcal{O}_x)\to \mathcal{O}_G(-1) \xrightarrow{+1} $$がある．
 	\end{enumerate}
 \end{proof}
 
 \begin{proposition}
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_{G'}(-1))$とおく．
+	\begin{enumerate}
+		\item $R\Hom_E(\mathcal{O}_z, F) = 0, R\Hom_E(F,\mathcal{O}_z)=0$
+		\item $R\Hom_E(\mathcal{O}_E, F) = 0, R\Hom_E(F,\mathcal{O}_E)=0$
+		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C}[-1], R\Hom_E(F,\mathcal{O}_x)=\mathbb{C}$
+		\item $R\Hom_E(\mathcal{O}_y, F) = \mathbb{C}[-1], R\Hom_E(F,\mathcal{O}_y)=\mathbb{C}$
+		\item $R\Hom_E( \mathcal{O}_s, F) =\mathbb{C}[-1], R\Hom_E(F, \mathcal{O}_s) =\mathbb{C}$
+		\item $R\Hom_E( \mathcal{O}_t, F) = R\Hom_E( \mathcal{O}_t, \mathcal{O}_G(-1)) = \bigoplus_{i=1}^\infty\mathbb{C}[-i]$
+		\item $R\Hom_E(\mathcal{O}_u, F) = R\Hom_E( \mathcal{O}_u, \mathcal{O}_{G'}(-1)) = \bigoplus_{i=1}^\infty\mathbb{C}[-i]$
+	\end{enumerate}
+\end{proposition}
 
+\begin{proof}
+	(5)以外はSerre dualityが成り立つので，$R\Hom_E(-, F)$のみ計算すればよい．
+	\begin {enumerate}
+	\item 自明．
+	\item 完全列$$0 \to \mathcal{O}_{G'}(-1) \to F \to \mathcal{O}_G(-1) \to 0$$に$R\Hom_E(\mathcal{O}_E, )$を施して得られる長完全列\[
+		\begin{array}{ccccccc}
+			0 & \to & \Hom(\mathcal{O}_E, \mathcal{O}_{G'}(-1))    & \to & \Hom(\mathcal{O}_E, F)   & \to & \Hom(\mathcal{O}_E, \mathcal{O}_G(-1))   \\
+			  & \to & \Ext^1(\mathcal{O}_E, \mathcal{O}_{G'}(-1))  & \to & \Ext^1(\mathcal{O}_E, F) & \to & \Ext^1(\mathcal{O}_E, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^2(\mathcal{O}_E, \mathcal{O}_{G'}(-1))  & \to & \Ext^2(\mathcal{O}_E,F)  & \to & \Ext^2(\mathcal{O}_E, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^3(\mathcal{O}_E, \mathcal{O}_{G'}(-1) ) &     &                          &     &
+		\end{array}
+	\]を計算すると\[
+		\begin{array}{ccccccc}
+			0 & \to & 0 & \to & \Hom(\mathcal{O}_E, F)   & \to & 0 \\
+			  & \to & 0 & \to & \Ext^1(\mathcal{O}_E, F) & \to & 0 \\
+			  & \to & 0 & \to & \Ext^2(\mathcal{O}_E,F)  & \to & 0 \\
+			  & \to & 0 &     &                          &     &
+		\end{array}
+	\]となるから，$R\Hom_E(\mathcal{O}_E, F) = 0$である．
+	\item 長完全列\[
+		\begin{array}{ccccccc}
+			0 & \to & \Hom(\mathcal{O}_x, \mathcal{O}_{G'}(-1))    & \to & \Hom(\mathcal{O}_x, F)   & \to & \Hom(\mathcal{O}_x, \mathcal{O}_G(-1))   \\
+			  & \to & \Ext^1(\mathcal{O}_x, \mathcal{O}_{G'}(-1))  & \to & \Ext^1(\mathcal{O}_x, F) & \to & \Ext^1(\mathcal{O}_x, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^2(\mathcal{O}_x, \mathcal{O}_{G'}(-1))  & \to & \Ext^2(\mathcal{O}_x,F)  & \to & \Ext^2(\mathcal{O}_x, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^3(\mathcal{O}_x, \mathcal{O}_{G'}(-1) ) &     &                          &     &
+		\end{array}
+	\]を計算すると\[
+		\begin{array}{ccccccc}
+			0 & \to & 0 & \to & \Hom(\mathcal{O}_x, F)   & \to & 0          \\
+			  & \to & 0 & \to & \Ext^1(\mathcal{O}_x, F) & \to & \mathbb{C} \\
+			  & \to & 0 & \to & \Ext^2(\mathcal{O}_x,F)  & \to & 0          \\
+			  & \to & 0 &     &                          &     &
+		\end{array}
+	\]となるから，$R\Hom_E(\mathcal{O}_x, F) = \mathbb{C}[-1]$である．
+	\item 長完全列\[
+		\begin{array}{ccccccc}
+			0 & \to & \Hom(\mathcal{O}_y, \mathcal{O}_{G'}(-1))    & \to & \Hom(\mathcal{O}_y, F)   & \to & \Hom(\mathcal{O}_y, \mathcal{O}_G(-1))   \\
+			  & \to & \Ext^1(\mathcal{O}_y, \mathcal{O}_{G'}(-1))  & \to & \Ext^1(\mathcal{O}_y, F) & \to & \Ext^1(\mathcal{O}_y, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^2(\mathcal{O}_y, \mathcal{O}_{G'}(-1))  & \to & \Ext^2(\mathcal{O}_y,F)  & \to & \Ext^2(\mathcal{O}_y, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^3(\mathcal{O}_y, \mathcal{O}_{G'}(-1) ) &     &                          &     &
+		\end{array}
+	\]を計算すると\[
+		\begin{array}{ccccccc}
+			0 & \to & 0          & \to & \Hom(\mathcal{O}_y, F)   & \to & 0 \\
+			  & \to & \mathbb{C} & \to & \Ext^1(\mathcal{O}_y, F) & \to & 0 \\
+			  & \to & 0          & \to & \Ext^2(\mathcal{O}_y,F)  & \to & 0 \\
+			  & \to & 0          &     &                          &     &
+		\end{array}
+	\]となるから，$R\Hom_E(\mathcal{O}_y, F) = \mathbb{C}[-1]$である．
+	\item $R\Hom_E(\mathcal{O}_s, -)$に伴う長完全列\[
+		\begin{array}{ccccccc}
+			0 & \to & \Hom(\mathcal{O}_s, \mathcal{O}_{G'}(-1))    & \to & \Hom(\mathcal{O}_s, F)   & \to & \Hom(\mathcal{O}_s, \mathcal{O}_G(-1))   \\
+			  & \to & \Ext^1(\mathcal{O}_s, \mathcal{O}_{G'}(-1))  & \to & \Ext^1(\mathcal{O}_s, F) & \to & \Ext^1(\mathcal{O}_s, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^2(\mathcal{O}_s, \mathcal{O}_{G'}(-1))  & \to & \Ext^2(\mathcal{O}_s,F)  & \to & \Ext^2(\mathcal{O}_s, \mathcal{O}_G(-1)) \\
+			  & \to & \Ext^3(\mathcal{O}_s, \mathcal{O}_{G'}(-1) ) & \to & \cdots                   &     &
+		\end{array}
+	\]を計算すると\[
+		\begin{array}{ccccccc}
+			0 & \to & 0          & \to & \Hom(\mathcal{O}_s, F)   & \to & 0          \\
+			  & \to & \mathbb{C} & \to & \Ext^1(\mathcal{O}_s, F) & \to & \mathbb{C} \\
+			  & \to & \mathbb{C} & \to & \Ext^2(\mathcal{O}_s,F)  & \to & \mathbb{C} \\
+			  & \to & \mathbb{C} & \to & \cdots                   &     &
+		\end{array}
+	\]となり，$\mathbb{C} \to \mathbb{C}$は全て同型だから$R\Hom_E(\mathcal{O}_s, F) = \mathbb{C}[-1]$である．また$R\Hom_E(-, \mathcal{O}_s)$に伴う長完全列\[
+		\begin{array}{ccccccccc}
+			 &  &                                             &            & \cdots                   & \leftarrow & \Ext^3(\mathcal{O}_{G}(-1), \mathcal{O}_s) & \leftarrow &   \\
+			 &  & \Ext^2(\mathcal{O}_{G'}(-1), \mathcal{O}_s) & \leftarrow & \Ext^2(F, \mathcal{O}_s) & \leftarrow & \Ext^2(\mathcal{O}_G(-1), \mathcal{O}_s)   & \leftarrow &   \\
+			 &  & \Ext^1(\mathcal{O}_{G'}(-1), \mathcal{O}_s) & \leftarrow & \Ext^1(F, \mathcal{O}_s) & \leftarrow & \Ext^1(\mathcal{O}_G(-1), \mathcal{O}_s)   & \leftarrow &   \\
+			 &  & \Hom(\mathcal{O}_{G'}(-1), \mathcal{O}_s)   & \leftarrow & \Hom(F, \mathcal{O}_s)   & \leftarrow & \Hom(\mathcal{O}_G(-1), \mathcal{O}_s)     & \leftarrow & 0 \\
+		\end{array}
+	\]を計算すると\[
+		\begin{array}{ccccccccc}
+			 &  &            &            & \cdots                   & \leftarrow & \mathbb{C} & \leftarrow &   \\
+			 &  & \mathbb{C} & \leftarrow & \Ext^2(F, \mathcal{O}_s) & \leftarrow & \mathbb{C} & \leftarrow &   \\
+			 &  & \mathbb{C} & \leftarrow & \Ext^1(F, \mathcal{O}_s) & \leftarrow & \mathbb{C} & \leftarrow &   \\
+			 &  & \mathbb{C} & \leftarrow & \Hom(F, \mathcal{O}_s)   & \leftarrow & \mathbb{C} & \leftarrow & 0 \\
+		\end{array}
+	\]となり，$\mathbb{C} \to \mathbb{C}$は全て同型だから$R\Hom_E(F, \mathcal{O}_s) = \mathbb{C}[-1]$である．
+	\item $F$を表す完全列と$R\Hom_E(\mathcal{O}_t, \mathcal{O}_{G'}(-1))=0$からわかる．
+	\item (6)と同様．
+	\end{enumerate}
+\end{proof}
+\begin{proposition}
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_x)$とおく．
+	\begin{enumerate}
+		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C}0 \oplus \mathbb{C}[-1],R\Hom_E(F, \mathcal{O}_x) = \mathbb{C} \oplus \mathbb{C}[-1]$
+		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_E) = \mathbb{C}[-1]$
+		\item $R\Hom_E(\mathcal{O}_G(-1), F) = \mathbb{C}[-1] ,R\Hom_E(F, \mathcal{O}_G(-1)) = \mathbb{C}$
+		\item $R\Hom_E(\mathcal{O}_{G'}(-1), F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_{G'}(-1)) = \mathbb{C}[-1]$
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	$F$はperfectだから，Serre dualityより，$R\Hom_E(-, F)$のみ計算すればよい．
+	\begin{enumerate}
+		\item distinguished triangle $$\mathcal{O}_G(-2)[1]\to \Phi_G(\mathcal{O}_x)\to \mathcal{O}_G(-1) \xrightarrow{+1} $$に$R\Hom_E(\mathcal{O}_x, )$を施して得られる長完全列\[
+			      \begin{array}{ccccccc}
+
+				       &     & \Hom(\mathcal{O}_x, \mathcal{O}_G(-2))    & \to & \Ext^{-1}(\mathcal{O}_x, F) & \to & \Ext^{-1}(\mathcal{O}_x, \mathcal{O}_G(-1)) \\
+				       & \to & \Ext^1(\mathcal{O}_x, \mathcal{O}_G(-2))  & \to & \Hom(\mathcal{O}_x, F)      & \to & \Hom(\mathcal{O}_x, \mathcal{O}_G(-1))      \\
+				       & \to & \Ext^2(\mathcal{O}_x, \mathcal{O}_G(-2))  & \to & \Ext^1(\mathcal{O}_x,F)     & \to & \Ext^1(\mathcal{O}_x, \mathcal{O}_G(-1))    \\
+				       & \to & \Ext^3(\mathcal{O}_x, \mathcal{O}_G(-2) ) &     &                             &     &
+			      \end{array}
+		      \]を計算すると\[
+			      \begin{array}{ccccccc}
+
+				       &     & 0          & \to & \Ext^{-1}(\mathcal{O}_x, F) & \to & 0          \\
+				       & \to & \mathbb{C} & \to & \Hom(\mathcal{O}_x, F)      & \to & 0          \\
+				       & \to & 0          & \to & \Ext^1(\mathcal{O}_x,F)     & \to & \mathbb{C} \\
+				       & \to & 0          &     &                             &     &
+			      \end{array}
+		      \]となるから， $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C} \oplus \mathbb{C}[-1]$である．
+		\item 長完全列\[
+			      \begin{array}{ccccccc}
+
+				       &     & \Hom(\mathcal{O}_E, \mathcal{O}_G(-2))    & \to & \Ext^{-1}(\mathcal{O}_E, F) & \to & \Ext^{-1}(\mathcal{O}_E, \mathcal{O}_G(-1)) \\
+				       & \to & \Ext^1(\mathcal{O}_E, \mathcal{O}_G(-2))  & \to & \Hom(\mathcal{O}_E, F)      & \to & \Hom(\mathcal{O}_E, \mathcal{O}_G(-1))      \\
+				       & \to & \Ext^2(\mathcal{O}_E, \mathcal{O}_G(-2))  & \to & \Ext^1(\mathcal{O}_E,F)     & \to & \Ext^1(\mathcal{O}_E, \mathcal{O}_G(-1))    \\
+				       & \to & \Ext^3(\mathcal{O}_E, \mathcal{O}_G(-2) ) &     &                             &     &
+			      \end{array}
+		      \]を計算すると\[
+			      \begin{array}{ccccccc}
+
+				       &     & 0          & \to & \Ext^{-1}(\mathcal{O}_E, F) & \to & 0 \\
+				       & \to & \mathbb{C} & \to & \Hom(\mathcal{O}_E, F)      & \to & 0 \\
+				       & \to & 0          & \to & \Ext^1(\mathcal{O}_E,F)     & \to & 0 \\
+				       & \to & 0          &     &                             &     &
+			      \end{array}
+		      \]となるから，$R\Hom_E(\mathcal{O}_E, F) = \mathbb{C}$である．
+		\item 長完全列\[
+			      \begin{array}{ccccccc}
+
+				       &     & \Hom(\mathcal{O}_G(-1), \mathcal{O}_G(-2))    & \to & \Ext^{-1}(\mathcal{O}_G(-1), F) & \to & \Ext^{-1}(\mathcal{O}_G(-1), \mathcal{O}_G(-1)) \\
+				       & \to & \Ext^1(\mathcal{O}_G(-1), \mathcal{O}_G(-2))  & \to & \Hom(\mathcal{O}_G(-1), F)      & \to & \Hom(\mathcal{O}_G(-1), \mathcal{O}_G(-1))      \\
+				       & \to & \Ext^2(\mathcal{O}_G(-1), \mathcal{O}_G(-2))  & \to & \Ext^1(\mathcal{O}_G(-1),F)     & \to & \Ext^1(\mathcal{O}_G(-1), \mathcal{O}_G(-1))    \\
+				       & \to & \Ext^3(\mathcal{O}_G(-1), \mathcal{O}_G(-2) ) & \to & \Ext^2(\mathcal{O}_G(-1),F)     & \to & \Ext^2(\mathcal{O}_G(-1), \mathcal{O}_G(-1))    \\
+				       & \to & \Ext^4(\mathcal{O}_G(-1), \mathcal{O}_G(-2) ) & \to & \Ext^3(\mathcal{O}_G(-1),F)     & \to & \Ext^3(\mathcal{O}_G(-1), \mathcal{O}_G(-1))    \\
+				       & \to & \cdots                                        &     &                                 &
+			      \end{array}
+		      \]を計算すると\[
+			      \begin{array}{ccccccc}
+
+				       &     & 0            & \to & \Ext^{-1}(\mathcal{O}_G(-1), F) & \to & 0            \\
+				       & \to & 0            & \to & \Hom(\mathcal{O}_G(-1), F)      & \to & \mathbb{C}   \\
+				       & \to & \mathbb{C}^2 & \to & \Ext^1(\mathcal{O}_G(-1),F)     & \to & 0            \\
+				       & \to & 0            & \to & \Ext^2(\mathcal{O}_G(-1),F)     & \to & \mathbb{C}^2 \\
+				       & \to & \mathbb{C}^2 & \to & \Ext^3(\mathcal{O}_G(-1),F)     & \to & 0            \\
+				       & \to & \cdots       &     &                                 &
+			      \end{array}
+		      \]となり，ここに現れる$\mathbb{C}^2 \to \mathbb{C}^2$は全て同型（射影分解による計算を具体的に見るとわかる）だから$$R\Hom_E(\mathcal{O}_G(-1), F) = \mathbb{C}[-1]$$または$$R\Hom_E(\mathcal{O}_G(-1), F) = \mathbb{C}\oplus\mathbb{C}[-1]^2$$とわかる．さらに$\Hom(\mathcal{O}_G(-1), \mathcal{O}_G(-1)) \to \Ext^2(\mathcal{O}_G(-1), \mathcal{O}_G(-2))$が$0$でない射であることもわかるから，$$R\Hom_E(\mathcal{O}_G(-1), F) = \mathbb{C}[-1]$$である．
+		\item 長完全列\[
+			      \begin{array}{ccccccc}
+
+				       &     & \Hom(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-2))    & \to & \Ext^{-1}(\mathcal{O}_{G'}(-1), F) & \to & \Ext^{-1}(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-1)) \\
+				       & \to & \Ext^1(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-2))  & \to & \Hom(\mathcal{O}_{G'}(-1), F)      & \to & \Hom(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-1))      \\
+				       & \to & \Ext^2(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-2))  & \to & \Ext^1(\mathcal{O}_{G'}(-1),F)     & \to & \Ext^1(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-1))    \\
+				       & \to & \Ext^3(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-2) ) & \to & \Ext^2(\mathcal{O}_{G'}(-1),F)     & \to & \Ext^2(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-1))    \\
+				       & \to & \Ext^4(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-2) ) & \to & \Ext^3(\mathcal{O}_{G'}(-1),F)     & \to & \Ext^3(\mathcal{O}_{G'}(-1), \mathcal{O}_{G}(-1))    \\
+				       & \to & \cdots                                             &     &                                    &
+			      \end{array}
+		      \]を計算すると\[
+			      \begin{array}{ccccccc}
+
+				       &     & 0          & \to & \Ext^{-1}(\mathcal{O}_G(-1), F) & \to & 0          \\
+				       & \to & \mathbb{C} & \to & \Hom(\mathcal{O}_G(-1), F)      & \to & 0          \\
+				       & \to & 0          & \to & \Ext^1(\mathcal{O}_G(-1),F)     & \to & \mathbb{C} \\
+				       & \to & \mathbb{C} & \to & \Ext^2(\mathcal{O}_G(-1),F)     & \to & 0          \\
+				       & \to & 0          & \to & \Ext^3(\mathcal{O}_G(-1),F)     & \to & \mathbb{C} \\
+				       & \to & \cdots     &     &                                 &
+			      \end{array}
+		      \]となり，ここに現れる$\mathbb{C}\to \mathbb{C}$は全て同型だから$$R\Hom_E(\mathcal{O}_{G'}(-1), F) = \mathbb{C}$$となる．
+	\end{enumerate}
+\end{proof}
+
+
+\section{計算メモ保管用}
+\begin{proposition}
+	$G \subset S$を$(-2)$曲線とし，$T_{\mathcal{O}_G(-1)}$が誘導する特異ファイバー$E$の自己同値を$\Phi_G \in \Auteq D^b(E)$とする．このとき
+	\begin{enumerate}
+		\item $D^b(E)$におけるdistinguished triangle$$H\to \Phi_G(\mathcal{O}_E)\to \mathcal{O}_G[-1] \xrightarrow{+1} $$が存在する．ここで$H$は$\Ext^1_E(\mathcal{O}_G, \mathcal{O}_E) = \mathbb{C}$の$0$でない元に対応する非自明な拡大$$0 \to \mathcal{O}_E \to H \to \mathcal{O}_G \to 0$$から得られる$E$上の層である．
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \item $D^b(S)$におけるdistinguished triangle
+		      $$ \mathcal{O}_G[-1] \oplus \mathcal{O}_G[-2] \to \mathcal{O}_E \to T_{\mathcal{O}_G}(\mathcal{O}_E)\xrightarrow{+1}$$のコホモロジー長完全列
+		      \[
+			      \begin{array}{ccccccc}
+				       &     & 0             & \to & \mathcal{O}_E & \to & \mathcal{H}^{0}(T_{\mathcal{O}_G}(\mathcal{O}_E)) \\
+
+				       & \to & \mathcal{O}_G & \to & 0             & \to & \mathcal{H}^1(T_{\mathcal{O}_G}(\mathcal{O}_E))   \\
+				       & \to & \mathcal{O}_G & \to & 0             &     &                                                   \\
+			      \end{array}
+		      \]
+		      に対し(3)と同じ議論をすればよい．
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_{G'})$とおく．
+	\begin{enumerate}
+		\item $R\Hom_E(\mathcal{O}_z, F) = 0, R\Hom_E(F,\mathcal{O}_z)=0$
+		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C}^2, R\Hom_E(F,\mathcal{O}_E)=\mathbb{C}^2[-1]$
+		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C}[-1], R\Hom_E(F,\mathcal{O}_x)=\mathbb{C}$
+		\item $R\Hom_E(\mathcal{O}_y, F) = \mathbb{C}[-1], R\Hom_E(F,\mathcal{O}_y)=\mathbb{C}$
+		\item $R\Hom_E(F, \mathcal{O}_s) =\mathbb{C}, R\Hom_E( \mathcal{O}_s, F) =\mathbb{C}[-1]$
+	\end{enumerate}
+\end{proposition}
+\begin{proposition}
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_x)$とおく．
+	\begin{enumerate}
+		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C} \oplus \mathbb{C}[-1],R\Hom_E(F, \mathcal{O}_x) = \mathbb{C} \oplus \mathbb{C}[-1]$
+		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_E) = \mathbb{C}[-1]$
+		\item $R\Hom_E(\mathcal{O}_G, F) = \mathbb{C}[-1] ,R\Hom_E(F, \mathcal{O}_E) = \mathbb{C}$
+		\item $R\Hom_E(\mathcal{O}_{G'}, F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_{G'}) = \mathbb{C}[-1]$
+	\end{enumerate}
+\end{proposition}
+
+
+\begin{proposition}
+	$G$を$E$の既約成分とし，$x$を$G$上の非特異閉点，$z$を$E \backslash G$上の閉点，$s,t$を$G$上の特異点とする．$F = \Phi_G(\mathcal{O}_E)$とおく．
+	\begin{enumerate}
+		\item $R\Hom_E(F,\mathcal{O}_x) = \mathbb{C}[1] \oplus \mathbb{C}^2$
+		\item $R\Hom_E(F,\mathcal{O}_y) = \mathbb{C}$
+		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C}^2\oplus\mathbb{C}[-1]$
+
+	\end{enumerate}
 \end{proposition}
 \begin{thebibliography}{99}
 	\bibitem[Ueh15]{Ueh15} H. Uehara, \textit{Autoequivalences of derived categories of elliptic surfaces with non-zero Kodaira dimension},arXiv e-prints (2021), arXiv:1501.06657v2.
