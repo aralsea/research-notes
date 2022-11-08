@@ -9,6 +9,7 @@
 \usepackage{ulem}
 \usepackage[all]{xy}
 \usepackage{tikz-cd}
+\usepackage{mathtools}
 \def\objectstyle{\displaystyle}
 
 
@@ -31,6 +32,7 @@
 \newtheorem{lemma}[theorem]{Lem.}
 \newtheorem{corollary}[theorem]{Cor.}
 \newtheorem{fact}[theorem]{Fact.}
+\newtheorem{example}[theorem]{Ex.}
 
 \makeatletter % use at mark
 \renewenvironment{proof}[1][\proofname]{\par
@@ -57,6 +59,8 @@
 \DeclareMathOperator{\Auteq}{Auteq}\DeclareMathOperator{\Coh}{Coh}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Pic}{Pic}
 
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\ch}{ch}
@@ -171,10 +175,15 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	となり，Lem.\ref{counit_map}より$\mathcal{H}^0(\varepsilon)$は同型だから，$C \cong (F \otimes L_{|X})[1]$となる．
 \end{proof}
 \begin{lemma}\label{boxtimes_is_a_sheaf}
-	$G \subset S$が$(-2)$-curveで$a \in \mathbb{Z}$のとき，$\mathcal{O}_G(a)^\vee \boxtimes \mathcal{O}_G(a) \in D^b(S\times S)$は$G\times G$上の層の$-1$シフト（のpushforward）である．
+	$G \subset S$が$(-2)$-curveで$a \in \mathbb{Z}$とする．以下のいずれかを仮定する．
+	\begin{itemize}
+		\item $\pi \colon S \to C$はsectionをもつ．
+		\item $\pi \colon S \to C$のsingular fiber $E$は$I_n$型$n \geq 3$である．
+	\end{itemize}
+	このとき，$\mathcal{O}_G(a)^\vee \boxtimes \mathcal{O}_G(a) \in D^b(S\times S)$は$G\times G$上の層の$-1$シフト（のpushforward）である．
 \end{lemma}
 \begin{proof}
-	$S$上のdivisor $D$であって$G.D = a$であるものを1つとる．（$G.G = -2 \neq 0$とPoincaré dualityにより必ずとれる．）このとき$\mathcal{O}_S(D)_{|G} \cong \mathcal{O}_G(a)$である．完全列$$0 \to \mathcal{O}_S(-G) \to \mathcal{O}_S \to \mathcal{O}_G \to 0$$より，$D^b(S)$において$$\mathcal{O}_G(a) \cong (\cdots \to 0 \to \mathcal{O}_S(D-G) \to \mathcal{O}_S(D) \to 0 \to \cdots)$$となる（右辺は$0$次に$\mathcal{O}_S(D)$があるcomplex）．よって
+	$S$上のdivisor $D$であって$G.D = a$であるものを1つとる（sectionを持つときはsectionの$a$倍，$N \geq 3$の$I_n$型のときは$G$のとなりの既約成分の$a$倍をとればよい）．このとき$\mathcal{O}_S(D)_{|G} \cong \mathcal{O}_G(a)$である．完全列$$0 \to \mathcal{O}_S(-G) \to \mathcal{O}_S \to \mathcal{O}_G \to 0$$より，$D^b(S)$において$$\mathcal{O}_G(a) \cong (\cdots \to 0 \to \mathcal{O}_S(D-G) \to \mathcal{O}_S(D) \to 0 \to \cdots)$$となる（右辺は$0$次に$\mathcal{O}_S(D)$があるcomplex）．よって
 	\begin{align*}
 		\mathcal{O}_G(a)^\vee & \cong (\cdots \to 0 \to \mathcal{O}_S(-D) \to \mathcal{O}_S(G-D) \to 0 \to \cdots) \\
 		                      & \cong \mathcal{O}_S(G-D)_{|G}[-1]
@@ -212,6 +221,19 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	という完全列を得る．この図式における$$\Ext^1(F, \mathcal{O}_\Delta) \to \Ext^1(Li^*(i_*F), \mathcal{O}_\Delta)$$はLem.\ref{pullback}より随伴$Li^* \dashv i_*$に付随するcounit射$\varepsilon \colon Li^*(i_*F) \to F$から誘導されるものだから，随伴同型$\Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta) \cong \Ext_X^1(Li^*(i_*F), \mathcal{O}_\Delta)$によりpushforwardが誘導する射$$\Ext_X^1(F, \mathcal{O}_\Delta) \to \Ext_Y^1(i_*F, i_*\mathcal{O}_\Delta)$$と同一視される．よって上の長完全列より，$\Hom(F\otimes L_{|X}, \mathcal{O}_\Delta) =0$であることを証明すれば命題が示されることになる．
 
 	以下それを示す．随伴により$$\Hom_X(F\otimes L_{|X}, \mathcal{O}_\Delta)\cong\Hom_\Delta((F\otimes L_{|X})_{|\Delta}, \mathcal{O}_\Delta)$$だが，$F$は$G \times G \subset X$上の層だったため，$(F\otimes L_{|X})_{|\Delta}$は$(G \times G) \cap \Delta = \Delta_G$上の層$F'$である．よって$$\Hom_\Delta((F\otimes L_{|X})_{|\Delta}, \mathcal{O}_\Delta)=\Hom_\Delta(F', \mathcal{O}_\Delta)$$となり，$\Delta_G \subset \Delta$は$G \subset S$とみなせるため，結局$G$上の層$F'$について$\Hom_S(F', \mathcal{O}_S)=0$を証明すればよい．これはSerre dualityより明らか．
+\end{proof}
+
+\begin{corollary}\label{restriction_map}
+	$B = \langle T_{\mathcal{O}_G(a)} \mid G \colon \text{$(-2)$-curve}, a \in \mathbb{Z} \rangle \subset \Auteq D^b(S)$の元は積分核の$E\times E$への制限によって$D^b(E)$の自己同値を誘導し，それによる写像$$r \colon B \to \Auteq D^b(E)$$は群準同型である．さらに$i \colon E \hookrightarrow S$とおくと，任意の$\Phi \in B$について関手の同型$$\Phi \circ i_* \cong i_* \circ r(\Phi)$$が成り立つ．
+\end{corollary}
+\begin{proof}
+	積分関手$\Phi_P, \Phi_Q \colon D^b(S) \to D^b(S)$の核$P, Q$がともに$S \times_C S$上のcomplexのpushforwardならば，その合成$\Phi_Q \circ \Phi_P$の核も$S \times_C S$上のcomplexのpushforwardである．よって写像$r$が定まる．群準同型であることはflat base change formulaからわかる．最後の部分も同様．
+\end{proof}
+\begin{proposition}
+	$E$を$I_n$型とし$E = \bigcup_{i=1}^n G_i$と既約成分分解すると，$$\Ker r = \{-\otimes \mathcal{O}(aE) \mid a \in \mathbb{Z}\} \cong \mathbb{Z}$$である．
+\end{proposition}
+\begin{proof}
+	$\Phi \in B$とし，$r(\Phi) = \id$だとする．このときCor.\ref{restriction_map}の同型$$\Phi \circ i_* \cong i_* \circ r(\Phi)$$より，任意の閉点$x \in E$について$\Phi(\mathcal{O}_x) \cong \mathcal{O}_x$である．また$E$の外では$T_{\mathcal{O}_G(a)}$の核が$\mathcal{O}_\Delta$に等しいことから，$x \in S\setminus E$について$T_{\mathcal{O}_G(a)}(\mathcal{O}_x) \cong \mathcal{O}_x$となり，その合成である$\Phi$についても$\Phi(\mathcal{O}_x) \cong\mathcal{O}_x$となる．よって\cite{Huy06} Cor.5.23 より，ある直線束$L \in \Pic(S)$により$$\Phi \cong (-)\otimes L$$とかける．ここで\cite{IU05} Prop.4.18 と同様にして$$B \cap \Pic(S) = \{ (-)\otimes \mathcal{O}(\sum_{i=1}^n a_iG_i) \mid a_i \in \mathbb{Z}\}$$となるから，$$\Phi \cong (-)\otimes \mathcal{O}(\sum_{i=1}^n a_iG_i)$$とかける．よって$r(\Phi) \cong (-)\otimes \mathcal{O}(\sum_{i=1}^n a_iG_i)|_E$となり，これが$\id$になるためには（各$G_i$での次数を見ることで）$$a_{i-1} - 2a_i + a_{i+1} = 0, \hspace{10pt} (i = 1, 2, \dots, n)$$が必要となる．（ただし$a_0 \coloneqq a_n, a_{n+1} \coloneqq a_1$とする．）よって全ての$a_i$が等しいことが必要だから$\Phi \colon (-)\otimes \mathcal{O}(aE)$とかけて，逆にこのとき$r(\Phi) \cong \id$である．
 \end{proof}
 
 \section{誘導される自己同値の計算}
@@ -334,7 +356,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 				      \mathbb{C} & (\text{ $ i $ が正の奇数})
 			      \end{array}
 			      \right.$$となる．
-		\item $i=0$については明らかなので，以下$i>0$とする．まず$x \in E\backslash\{s, t\}$について，$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x =0$$である．よって$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))$のsupportは$\{s, t\}$であることがわかる．$x \in \{s, t\}$のとき(1)と同様に考えると$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x \cong \Ext^i_A(A/x, A/x)$$となり，(1)と同じ射影分解によって$$ \Ext^i_A(A/x, A/x) = \left \{
+		\item $i=0$については明らかなので，以下$i>0$とする．まず$x \in E\setminus\{s, t\}$について，$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x =0$$である．よって$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))$のsupportは$\{s, t\}$であることがわかる．$x \in \{s, t\}$のとき(1)と同様に考えると$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x \cong \Ext^i_A(A/x, A/x)$$となり，(1)と同じ射影分解によって$$ \Ext^i_A(A/x, A/x) = \left \{
 			      \begin{array}{ll}
 				      0          & (\text{$i$が正の奇数}) \\
 				      \mathbb{C} & (\text{$i$が正の偶数})
@@ -420,7 +442,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 \end{proof}
 
 \begin{proposition}
-	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_{G'}(-1))$とおく．
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \setminus (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_{G'}(-1))$とおく．
 	\begin{enumerate}
 		\item $R\Hom_E(\mathcal{O}_z, F) = 0, R\Hom_E(F,\mathcal{O}_z)=0$
 		\item $R\Hom_E(\mathcal{O}_E, F) = 0, R\Hom_E(F,\mathcal{O}_E)=0$
@@ -515,7 +537,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	\end{enumerate}
 \end{proof}
 \begin{proposition}
-	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_x)$とおく．
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \setminus (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_x)$とおく．
 	\begin{enumerate}
 		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C}0 \oplus \mathbb{C}[-1],R\Hom_E(F, \mathcal{O}_x) = \mathbb{C} \oplus \mathbb{C}[-1]$
 		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_E) = \mathbb{C}[-1]$
@@ -630,6 +652,27 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 \begin{proof}
 	$\mathcal{O}_E, \mathcal{O}_{x_i}(i=1,2 \dots, n)$に対応する閉曲線に対する作用が（内部自己同型による違いを除いて）$p, q$を入れ替えるhalf twistに等しいことと，Fact.\ref{action_on_pi1}，Prop.\ref{gen_of_pi1}によりわかる．
 \end{proof}
+\begin{proposition}
+	$E = \bigcup_{i=1}^n G_i$とする．このとき$\Phi_{G_i} = \Phi_i$に対応するhalf twistの向きは全て等しい．
+\end{proposition}
+\begin{proof}
+	$R\Hom_E(\Phi_{i}(\mathcal{O}_{G_{i+1}}(-1)), \Phi_{i-1}(\mathcal{O}_{G_i}(-1))) \neq 0$を示せばよい．完全列$$0 \to \mathcal{O}_{G_{i+1}}(-1) \to \Phi_i(\mathcal{O}_{G_{i+1}}(-1)) \to \mathcal{O}_{G_i}
+		(-1) \to 0$$
+	$$0 \to \mathcal{O}_{G_{i}}(-1) \to \Phi_{i-1}(\mathcal{O}_{G_{i}}(-1)) \to \mathcal{O}_{G_{i-1}}
+		(-1) \to 0$$があることに注意すると，より一般にアーベル圏における完全列$$0 \to A \to B \to C
+		\to 0$$$$0 \to A' \to B' \to C' \to 0$$が$C \cong A'$を満たすときに$R\Hom(B, B') \neq 0$となることを示せば十分である．これは$\Hom$の誘導する2つの完全列$$\Hom (A, A') \leftarrow \Hom(B, A') \leftarrow \Hom(C, A') \leftarrow 0$$$$0 \to \Hom(B, A') \to \Hom(B, B') \to \Hom(B, C') \to$$と$C \cong A'$からわかる．
+\end{proof}
+
+\section{TODO}
+\begin{example}
+	\begin{itemize}
+		\item half twist が全て同じ向きであることの証明→done
+		\item $\mathcal{O}_G(-1)$以外の$\mathcal{O}_G(a)$の誘導する自己同値は？
+	\end{itemize}
+\end{example}
+\begin{itemize}
+	\item
+\end{itemize}
 
 \section{計算メモ保管用}
 \begin{proposition}
@@ -655,7 +698,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 \end{proof}
 
 \begin{proposition}
-	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_{G'})$とおく．
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \setminus (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_{G'})$とおく．
 	\begin{enumerate}
 		\item $R\Hom_E(\mathcal{O}_z, F) = 0, R\Hom_E(F,\mathcal{O}_z)=0$
 		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C}^2, R\Hom_E(F,\mathcal{O}_E)=\mathbb{C}^2[-1]$
@@ -665,7 +708,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	\end{enumerate}
 \end{proposition}
 \begin{proposition}
-	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \backslash (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_x)$とおく．
+	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \setminus (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_x)$とおく．
 	\begin{enumerate}
 		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C} \oplus \mathbb{C}[-1],R\Hom_E(F, \mathcal{O}_x) = \mathbb{C} \oplus \mathbb{C}[-1]$
 		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_E) = \mathbb{C}[-1]$
@@ -676,7 +719,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 
 
 \begin{proposition}
-	$G$を$E$の既約成分とし，$x$を$G$上の非特異閉点，$z$を$E \backslash G$上の閉点，$s,t$を$G$上の特異点とする．$F = \Phi_G(\mathcal{O}_E)$とおく．
+	$G$を$E$の既約成分とし，$x$を$G$上の非特異閉点，$z$を$E \setminus G$上の閉点，$s,t$を$G$上の特異点とする．$F = \Phi_G(\mathcal{O}_E)$とおく．
 	\begin{enumerate}
 		\item $R\Hom_E(F,\mathcal{O}_x) = \mathbb{C}[1] \oplus \mathbb{C}^2$
 		\item $R\Hom_E(F,\mathcal{O}_y) = \mathbb{C}$
@@ -725,9 +768,13 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 
 \end{proposition}
 \begin{thebibliography}{99}
-	\bibitem[Ueh15]{Ueh15} H. Uehara, \textit{Autoequivalences of derived categories of elliptic surfaces with non-zero Kodaira dimension},arXiv e-prints (2021), arXiv:1501.06657v2.
 	\bibitem[BD11]{BD11} Farb, Benson, and Dan Margalit, \textit{A Primer on Mapping Class Groups (PMS-49)} (Princeton, NJ, 2011; online edn, Princeton Scholarship Online, 19 Oct. 2017)
+	\bibitem[Huy06]{Huy06} D. Huybrechts, \textit{Fourier-Mukai transforms in algebraic geometry}, Oxford Math. Monogr. (The
+	Clarendon Press, Oxford Univ. Press, Oxford, 2006); http://dx.doi.org/10.1093/acprof:
+	oso/9780199296866.001.0001.
+	\bibitem[IU05]{IU05} A. Ishii and H. Uehara, \textit{Autoequivalences of derived categories on the minimal resolutions of An-singularities on surfaces}, J. Differential Geom. 71 (2005), no. 3, 385–435; http://projecteuclid.org/euclid.jdg/1143571989.
 	\bibitem[Opp20]{Opp20} S. Opper, \textit{Spherical objects, transitivity and auto-equivalences of Kodaira cycles via gentle algebras
 	},arXiv e-prints (2021), arXiv:2011.08288.
+	\bibitem[Ueh15]{Ueh15} H. Uehara, \textit{Autoequivalences of derived categories of elliptic surfaces with non-zero Kodaira dimension},arXiv e-prints (2021), arXiv:1501.06657v2.
 \end{thebibliography}
 \end{document}
