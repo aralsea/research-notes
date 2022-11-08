@@ -70,6 +70,7 @@
 \DeclareMathOperator{\MCG}{MCG}
 \DeclareMathOperator{\PMCG}{PMCG}
 \DeclareMathOperator{\Out}{Out}
+\newcommand{\Homsheaf}{\mathop{\mathcal{H}\! \mathit{om}}\nolimits}
 \newcommand{\Extsheaf}{\mathop{\mathcal{E}\! \mathit{xt}}\nolimits}
 \newcommand{\Torsheaf}{\mathop{\mathcal{T}\! \mathit{or}}\nolimits}
 
@@ -322,10 +323,11 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 				      \mathbb{C} & (\text{ $i$ が正の奇数})
 			      \end{array}
 			      \right.$$
-		\item $R\Hom_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) = H^0(\mathcal{O}_G(b-a)) \oplus \bigoplus_{i=1}^\infty \mathbb{C}[-2i]$つまり$$\Ext^i_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) =\left \{
+		\item $R\Hom_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) = H^0(\mathcal{O}_G(b-a)) \oplus H^1(\mathcal{O}_G(b-a))[-1]\bigoplus_{i=1}^\infty \mathbb{C}^2[-2i]$つまり$$\Ext^i_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) =\left \{
 			      \begin{array}{ll}
-				      H^0(\mathcal{O}_G(b-a)) & (i=0)                            \\
-				      0                       & (i < 0 \text{または $i$ が奇数}) \\
+				      H^0(\mathcal{O}_G(b-a)) & (i=0)                                     \\
+				      H^1(\mathcal{O}_G(b-a)) & (i=1)                                     \\
+				      0                       & (i < 0 \text{または $i$ が$3$以上の奇数}) \\
 				      \mathbb{C}^2            & (\text{ $i$ が正の偶数})
 			      \end{array}
 			      \right.$$
@@ -356,12 +358,43 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 				      \mathbb{C} & (\text{ $ i $ が正の奇数})
 			      \end{array}
 			      \right.$$となる．
-		\item $i=0$については明らかなので，以下$i>0$とする．まず$x \in E\setminus\{s, t\}$について，$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x =0$$である．よって$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))$のsupportは$\{s, t\}$であることがわかる．$x \in \{s, t\}$のとき(1)と同様に考えると$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x \cong \Ext^i_A(A/x, A/x)$$となり，(1)と同じ射影分解によって$$ \Ext^i_A(A/x, A/x) = \left \{
+		\item まず$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) = \left \{
 			      \begin{array}{ll}
-				      0          & (\text{$i$が正の奇数}) \\
-				      \mathbb{C} & (\text{$i$が正の偶数})
+				      \mathcal{O}_G(b-a)                & (i=0)                          \\
+				      0                                 & (i<0 \text{または $i$ が奇数}) \\
+				      \mathcal{O}_s\oplus \mathcal{O}_t & (\text{ $ i $ が正の偶数})
 			      \end{array}
-			      \right.$$と計算できる．
+			      \right.$$を示す．$i<0$のときは明らか．
+		      \begin{itemize}
+			      \item $i=0$のとき\\
+			            $j\colon G \hookrightarrow E$とおくと，
+			            \begin{align*}
+				            j^*\Homsheaf_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) & \cong \Homsheaf_G(\mathcal{O}_G(a), \mathcal{O}_G(b)) \\
+				                                                               & \cong \mathcal{O}_G(b-a)
+			            \end{align*}
+			            となるが，$\Homsheaf_E(\mathcal{O}_G(a), \mathcal{O}_G(b))$は$\mathcal{O}_G$加群だから$$\Homsheaf_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) \cong j_*j^*\Homsheaf_E(\mathcal{O}_G(a), \mathcal{O}_G(b))$$である．これらより$$\Homsheaf_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) \cong \mathcal{O}_G(b-a)$$である．
+			      \item $i>0$のとき\\
+			            まず$x \in E\setminus\{s, t\}$について，$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x =0$$である．よって$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))$のsupportは$\{s, t\}$であることがわかる．$x \in \{s, t\}$のとき(1)と同様に考えると$$\Extsheaf^i_E(\mathcal{O}_G(a), \mathcal{O}_{G}(b))_x \cong \Ext^i_A(A/x, A/x)$$となり，(1)と同じ射影分解によって$$ \Ext^i_A(A/x, A/x) = \left \{
+				            \begin{array}{ll}
+					            0          & (\text{$i$が正の奇数}) \\
+					            \mathbb{C} & (\text{$i$が正の偶数})
+				            \end{array}
+				            \right.$$と計算できる．
+		      \end{itemize}
+		      これによりlocal-to-global spectral sequence$$E_2^{p, q} = H^p(E, \Extsheaf^q_E(\mathcal{O}_G(a), \mathcal{O}_G(b))) \Rightarrow E^{p+q} = \Ext^{p+q}_E(\mathcal{O}_G(a), \mathcal{O}_G(b))$$の$E_2$-termは$$E_2^{0, 0} = H^0(\mathcal{O}_G(b-a))$$
+		      $$E_2^{1,0} = H^1(\mathcal{O}_G(b-a))$$$$E_2^{0, q} =
+			      \begin{array}{ll}
+				      \mathbb{C}^2 & (\text{$q$が正の偶数})
+			      \end{array}$$となり，これら以外は全て$0$なので$$\Ext^i_E(\mathcal{O}_G(a), \mathcal{O}_G(b)) =\left \{
+			      \begin{array}{ll}
+				      H^0(\mathcal{O}_G(b-a)) & (i=0)                                     \\
+				      H^1(\mathcal{O}_G(b-a)) & (i=1)                                     \\
+				      0                       & (i < 0 \text{または $i$ が$3$以上の奇数}) \\
+				      \mathbb{C}^2            & (\text{ $i$ が正の偶数})
+			      \end{array}
+			      \right.$$となる．
+
+
 		\item (1)と同様に考えると，$\Ext^i_A(A/(x, y), A/y)$を計算すればよいことがわかる．(1)と同じ射影分解によって，複体$$0 \to A/(x,y) \xrightarrow{x} A/(x,y)\xrightarrow{y} A/(x,y)\xrightarrow{x
 			      } \cdots$$のコホモロジーを計算すればよく，$$ \Ext^i_A(A/(x,y), A/x) = \left \{
 			      \begin{array}{ll}
@@ -539,7 +572,7 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 \begin{proposition}
 	$G, G'$を$E$のとなりあう既約成分とし，$x,y$をそれぞれ$G, G'$上の非特異閉点，$z$を$E \setminus (G \cup G')$上の閉点，$s$を$G$と$G'$の交点，$t, u$をそれぞれ$G, G'$上の$s$でない特異点とする．$F = \Phi_G(\mathcal{O}_x)$とおく．
 	\begin{enumerate}
-		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C}0 \oplus \mathbb{C}[-1],R\Hom_E(F, \mathcal{O}_x) = \mathbb{C} \oplus \mathbb{C}[-1]$
+		\item $R\Hom_E(\mathcal{O}_x, F) = \mathbb{C} \oplus \mathbb{C}[-1],R\Hom_E(F, \mathcal{O}_x) = \mathbb{C} \oplus \mathbb{C}[-1]$
 		\item $R\Hom_E(\mathcal{O}_E, F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_E) = \mathbb{C}[-1]$
 		\item $R\Hom_E(\mathcal{O}_G(-1), F) = \mathbb{C}[-1] ,R\Hom_E(F, \mathcal{O}_G(-1)) = \mathbb{C}$
 		\item $R\Hom_E(\mathcal{O}_{G'}(-1), F) = \mathbb{C} ,R\Hom_E(F, \mathcal{O}_{G'}(-1)) = \mathbb{C}[-1]$
@@ -656,11 +689,11 @@ elliptic surface $\pi \colon S \to C$の定義などは\cite{Ueh15}に従う．
 	$E = \bigcup_{i=1}^n G_i$とする．このとき$\Phi_{G_i} = \Phi_i$に対応するhalf twistの向きは全て等しい．
 \end{proposition}
 \begin{proof}
-	$R\Hom_E(\Phi_{i}(\mathcal{O}_{G_{i+1}}(-1)), \Phi_{i-1}(\mathcal{O}_{G_i}(-1))) \neq 0$を示せばよい．完全列$$0 \to \mathcal{O}_{G_{i+1}}(-1) \to \Phi_i(\mathcal{O}_{G_{i+1}}(-1)) \to \mathcal{O}_{G_i}
+	絵を描くと，$R\Hom_E(\Phi_{i}(\mathcal{O}_{G_{i+1}}(-1)), \Phi_{i-1}(\mathcal{O}_{G_i}(-1))) \neq 0$を示せばよいことがわかる．完全列$$0 \to \mathcal{O}_{G_{i+1}}(-1) \to \Phi_i(\mathcal{O}_{G_{i+1}}(-1)) \to \mathcal{O}_{G_i}
 		(-1) \to 0$$
 	$$0 \to \mathcal{O}_{G_{i}}(-1) \to \Phi_{i-1}(\mathcal{O}_{G_{i}}(-1)) \to \mathcal{O}_{G_{i-1}}
 		(-1) \to 0$$があることに注意すると，より一般にアーベル圏における完全列$$0 \to A \to B \to C
-		\to 0$$$$0 \to A' \to B' \to C' \to 0$$が$C \cong A'$を満たすときに$R\Hom(B, B') \neq 0$となることを示せば十分である．これは$\Hom$の誘導する2つの完全列$$\Hom (A, A') \leftarrow \Hom(B, A') \leftarrow \Hom(C, A') \leftarrow 0$$$$0 \to \Hom(B, A') \to \Hom(B, B') \to \Hom(B, C') \to$$と$C \cong A'$からわかる．
+		\to 0$$$$0 \to A' \to B' \to C' \to 0$$があり$C \cong A'$を満たすときに$R\Hom(B, B') \neq 0$となることを示せば十分である．これは$\Hom$の誘導する2つの完全列$$\Hom (A, A') \leftarrow \Hom(B, A') \leftarrow \Hom(C, A') \leftarrow 0$$$$0 \to \Hom(B, A') \to \Hom(B, B') \to \Hom(B, C') $$と$C \cong A'$からわかる．
 \end{proof}
 
 \section{TODO}
