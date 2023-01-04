@@ -15,7 +15,7 @@ $makeindex = 'mendex %O -o %D %S';
 $dvipdf = 'dvipdfmx %O -o %D %S';
 $pdf_mode = 3;
 
-# previe
+# preview
 $pvc_view_file_via_temporary = 0;
 if ($^O eq 'linux') {
     $dvi_previewer = "xdg-open %S";
